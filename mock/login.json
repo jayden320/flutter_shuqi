@@ -1,0 +1,15 @@
+{
+  "state": "200",
+  "message": "success",
+  "data": {
+    
+    "token": "k3h6lvk3l78lxiutq5578",
+    "id": 1854,
+    "nickname": "素敌",
+    "avatar": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2831320512,2443437629&fm=26&gp=0.jpg",
+    "is_vip":  0,
+    "wealth": 53.4,
+    "coupon": 3,
+    "ticket": 6
+  }
+}
