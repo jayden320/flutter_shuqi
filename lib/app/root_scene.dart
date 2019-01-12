@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:shuqi/public.dart';
 
+import 'package:shuqi/home/home_scene.dart';
+
 class RootScene extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => RootSceneState();
@@ -67,9 +69,9 @@ class RootSceneState extends State<RootScene> {
     return Scaffold(
       body: IndexedStack(
         children: <Widget>[
-          Container(),
-          Container(),
-          Container(),
+          HomeScene(),
+          HomeScene(),
+          HomeScene(),
         ],
         index: _tabIndex,
       ),
