@@ -1,16 +1,94 @@
-# shuqi
+# 高仿书旗小说 Flutter 版
 
-A new Flutter project.
+简书：http://www.jianshu.com/p/9211f42d5c25
 
-## Getting Started
+##  screen shot for iOS
 
-This project is a starting point for a Flutter application.
+<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_0.png">
 
-A few resources to get you started if this is your first Flutter project:
+<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_1.png">
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_2.png">
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## screen shot for Android
+
+<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_0.png">
+
+<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_1.png">
+
+<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_2.png">
+
+## Setup
+
+1. **Clone the repo**
+
+```
+$ git clone https://github.com/huanxsd/flutter_shuqi.git
+$ cd flutter_shuqi
+```
+
+2. **Running:**
+
+```
+$ flutter run
+```
+
+## Dependency
+
+* [carousel_slider](https://pub.flutter-io.cn/packages/carousel_slider)
+* [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)
+* [shared_preferences](https://pub.flutter-io.cn/packages/shared_preferences)
+
+## Contact
+
+If you have any suggestions, leave a message here
+[简书](https://www.jianshu.com/p/ded7f9ac0101)
+
+
+## 简介
+
+这是一个用Flutter写的书旗小说客户端。
+
+主要实现的页面有：
+* 书城：3D轮播、菜单、五种通过API配置的卡片样式；
+* 书架：顶部云彩动效、导航栏样式切换动效、书籍展示；
+* 小说详情：导航栏样式切换动效、高斯模糊效果、文字伸缩；
+* 我的：未登录/登录状态切换，菜单展示；
+* 登录：获取验证码、用户登录/注销。
+
+所有功能都是用Dart写的，iOS和Android的代码复用率达到了100%
+
+我试着让这个Demo的结构尽量接近实际项目，同时使用比较简单方式去实现功能。这样可以让刚接触Flutter的人更够容易理解代码。
+
+App中的网络请求均通过一个名为**Request**的工具类。在Request内部，通过**本地mock**方式，获取模拟数据。
+
+## 第三方依赖
+
+* [carousel_slider](https://pub.flutter-io.cn/packages/carousel_slider)
+* [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)
+* [shared_preferences](https://pub.flutter-io.cn/packages/shared_preferences)
+
+## 安装
+
+1. **Clone the repo**
+
+```
+$ git clone https://github.com/huanxsd/flutter_shuqi.git
+$ cd flutter_shuqi
+```
+
+2. **Running:**
+
+```
+$ flutter run
+```
+
+## 最后
+
+如果你喜欢这个项目，欢迎给我一个star。我将持续更新这个项目   :)
+
+也欢迎在[Github主页](https://github.com/huanxsd)关注我的其他项目。
+
+如果对这个项目有任何建议或意见，欢迎加入Flutter QQ群，群号：685481972
+
+![Flutter开发者群二维码.png](https://upload-images.jianshu.io/upload_images/5685774-ffb1666726e80786.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200))
