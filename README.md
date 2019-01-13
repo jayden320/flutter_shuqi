@@ -1,6 +1,6 @@
 # 高仿书旗小说 Flutter 版
 
-简书：http://www.jianshu.com/p/9211f42d5c25
+[简书](https://www.jianshu.com/p/aed5e319b313)
 
 ##  screen shot for iOS
 
@@ -40,7 +40,7 @@ $ flutter run
 ## Contact
 
 If you have any suggestions, leave a message here
-[简书](https://www.jianshu.com/p/ded7f9ac0101)
+[简书](https://www.jianshu.com/p/aed5e319b313)
 
 
 ## 简介
