@@ -4,6 +4,7 @@ import 'package:shuqi/public.dart';
 
 import 'package:shuqi/novel_detail/novel_detail_scene.dart';
 import 'package:shuqi/me/login_scene.dart';
+import 'package:shuqi/me/web_scene.dart';
 
 class AppNavigator {
   static push(BuildContext context, Widget scene) {
@@ -22,6 +23,12 @@ class AppNavigator {
   static pushLogin(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return LoginScene();
+    }));
+  }
+
+  static pushWeb(BuildContext context, String url, String title) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return WebScene(url: url, title: title);
     }));
   }
 }

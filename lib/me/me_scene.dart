@@ -75,9 +75,11 @@ class MeScene extends StatelessWidget {
             },
           ),
           MeCell(
-            title: '意见反馈',
+            title: 'Github',
             iconName: 'img/me_feedback.png',
-            onPressed: () {},
+            onPressed: () {
+              AppNavigator.pushWeb(context, 'https://github.com/huanxsd/flutter_shuqi', 'Github');
+            },
           ),
         ],
       ),

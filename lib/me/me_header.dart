@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:shuqi/public.dart';
-import 'package:shuqi/public.dart';
 
 class MeHeader extends StatelessWidget {
   @override
@@ -12,6 +11,7 @@ class MeHeader extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (UserManager.instance.isLogin) {
+          AppNavigator.pushWeb(context, 'https://github.com/huanxsd/flutter_shuqi', 'Github');
         } else {
           AppNavigator.pushLogin(context);
         }

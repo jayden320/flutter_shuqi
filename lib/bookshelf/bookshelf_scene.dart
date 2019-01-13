@@ -15,7 +15,6 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
   List<Novel> favoriteNovels = [];
   ScrollController scrollController = ScrollController();
   double navAlpha = 0;
-  bool isVisible = true;
 
   @override
   void initState() {
@@ -49,14 +48,8 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
   }
 
   @override
-  void didPushNext() {
-    isVisible = false;
-  }
-
-  @override
   void didPopNext() {
-    isVisible = true;
-    updateStatusBar();
+    Screen.updateStatusBarStyle(SystemUiOverlayStyle.dark);
   }
 
   @override
@@ -132,7 +125,8 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
 
   Widget buildFavoriteView() {
     List<Widget> children = [];
-    favoriteNovels.forEach((novel) {
+    var novels = favoriteNovels.sublist(1);
+    novels.forEach((novel) {
       children.add(BookshelfItemView(novel));
     });
     var width = (Screen.width(context) - 15 * 2 - 24 * 2) / 3;
@@ -156,20 +150,8 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
     );
   }
 
-  updateStatusBar() {
-    if (navAlpha == 1) {
-      Screen.updateStatusBarStyle(SystemUiOverlayStyle.dark);
-    } else {
-      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (isVisible) {
-      updateStatusBar();
-    }
-
     return Scaffold(
       backgroundColor: SQColor.white,
       body: Stack(children: [

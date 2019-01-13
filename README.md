@@ -8,15 +8,11 @@
 
 <img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_1.png">
 
-<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_2.png">
-
 ## screen shot for Android
 
 <img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_0.png">
 
 <img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_1.png">
-
-<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_2.png">
 
 ## Setup
 
@@ -38,6 +34,8 @@ $ flutter run
 * [carousel_slider](https://pub.flutter-io.cn/packages/carousel_slider)
 * [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)
 * [shared_preferences](https://pub.flutter-io.cn/packages/shared_preferences)
+* [flutter_webview_plugin](https://pub.flutter-io.cn/packages/flutter_webview_plugin)
+* [share](https://pub.flutter-io.cn/packages/share)
 
 ## Contact
 
@@ -52,8 +50,8 @@ If you have any suggestions, leave a message here
 主要实现的功能有：
 * 框架：App常用的Tab框架，UI根据系统字体设定自适应；
 * 书城：3D轮播、菜单、五种通过API配置的卡片样式；
-* 书架：顶部云彩动效、导航栏样式切换动效、书籍展示；
 * 小说详情：导航栏样式切换动效、高斯模糊效果、文字伸缩；
+* 书架：顶部云彩动效、导航栏样式切换动效、书籍展示；
 * 我的：未登录/登录状态切换，菜单展示；
 * 登录：获取验证码、用户登录、用户状态缓存、用户注销。
 
@@ -68,6 +66,8 @@ App中的网络请求均通过一个名为**Request**的工具类。在Request�
 * [carousel_slider](https://pub.flutter-io.cn/packages/carousel_slider)
 * [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)
 * [shared_preferences](https://pub.flutter-io.cn/packages/shared_preferences)
+* [flutter_webview_plugin](https://pub.flutter-io.cn/packages/flutter_webview_plugin)
+* [share](https://pub.flutter-io.cn/packages/share)
 
 ## 安装
 
@@ -92,4 +92,4 @@ $ flutter run
 
 如果对这个项目有任何建议或意见，欢迎加入Flutter QQ群，群号：685481972
 
-![Flutter开发者群二维码.png](https://upload-images.jianshu.io/upload_images/5685774-ffb1666726e80786.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200))
+![image.png](https://upload-images.jianshu.io/upload_images/5685774-66223a01e5817e3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
