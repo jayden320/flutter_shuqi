@@ -13,8 +13,9 @@ class AppScene extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.white,
-        accentColor: SQColor.primary,
         dividerColor: Color(0xffeeeeee),
+        scaffoldBackgroundColor: SQColor.paper,
+        textTheme: TextTheme(body1: TextStyle(color: SQColor.darkGray)),
       ),
       home: RootScene(),
     );

@@ -11,7 +11,7 @@ class BookshelfItemView extends StatelessWidget {
     var width = (Screen.width(context) - 15 * 2 - 24 * 2) / 3;
     return GestureDetector(
       onTap: () {
-        Router.pushNovelDetail(context, novel);
+        AppNavigator.pushNovelDetail(context, novel);
       },
       child: Container(
         width: width,
@@ -27,13 +27,7 @@ class BookshelfItemView extends StatelessWidget {
               decoration: BoxDecoration(boxShadow: [BoxShadow(color: Color(0x22000000), blurRadius: 5)]),
             ),
             SizedBox(height: 10),
-            Text(novel.name,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: SQColor.darkGray,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis),
+            Text(novel.name, style: TextStyle(fontSize: 14), maxLines: 1, overflow: TextOverflow.ellipsis),
             SizedBox(height: 25),
           ],
         ),

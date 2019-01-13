@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Screen {
   static width(BuildContext context) {
@@ -16,5 +16,9 @@ class Screen {
 
   static bottomSafeHeight(BuildContext context) {
     return MediaQuery.of(context).padding.bottom;
+  }
+
+  static updateStatusBarStyle(SystemUiOverlayStyle style) {
+    SystemChrome.setSystemUIOverlayStyle(style);
   }
 }

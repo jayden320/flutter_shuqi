@@ -13,7 +13,10 @@ class NovelDetailToolbar extends StatelessWidget {
       child: Row(children: <Widget>[
         Expanded(
           child: Center(
-            child: Text('加书架', style: TextStyle(fontSize: 16, color: SQColor.primary)),
+            child: Text(
+              '加书架',
+              style: TextStyle(fontSize: 16, color: SQColor.primary),
+            ),
           ),
         ),
         Expanded(

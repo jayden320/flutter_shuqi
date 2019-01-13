@@ -8,7 +8,7 @@ class NovelDetailCell extends StatelessWidget {
   final String subtitle;
   final Widget attachedWidget;
 
-  NovelDetailCell(this.iconName, this.title, this.subtitle, this.attachedWidget);
+  NovelDetailCell({this.iconName, this.title, this.subtitle, this.attachedWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class NovelDetailCell extends StatelessWidget {
               children: <Widget>[
                 Image.asset(iconName),
                 SizedBox(width: 5),
-                Text(title, style: TextStyle(fontSize: 16, color: SQColor.darkGray)),
+                Text(title, style: TextStyle(fontSize: 16)),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(

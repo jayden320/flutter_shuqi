@@ -20,7 +20,7 @@ class NovelDetailScene extends StatefulWidget {
   NovelDetailSceneState createState() => NovelDetailSceneState();
 }
 
-class NovelDetailSceneState extends State<NovelDetailScene> {
+class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   Novel novel;
   List<Novel> recommendNovels = [];
   List<NovelComment> comments = [];
@@ -30,6 +30,8 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
   int commentCount = 0;
   int commentMemberCount = 0;
 
+  bool isVisible = true;
+
   @override
   void initState() {
     super.initState();
@@ -38,23 +40,16 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
     scrollController.addListener(() {
       var offset = scrollController.offset;
       if (offset < 0) {
-        if (navAlpha == 1) {
-          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-        }
         if (navAlpha != 0) {
           setState(() {
             navAlpha = 0;
           });
         }
       } else if (offset < 50) {
-        if (navAlpha == 1) {
-          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-        }
         setState(() {
           navAlpha = 1 - (50 - offset) / 50;
         });
       } else if (navAlpha != 1) {
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
         setState(() {
           navAlpha = 1;
         });
@@ -63,7 +58,38 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPush() {
+    // 间隔500毫秒后，再设置状态栏样式。否则设置无效（会被build覆盖？）。
+    Timer(Duration(milliseconds: 500), () {
+      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    });
+  }
+
+  @override
+  void didPopNext() {
+    isVisible = true;
+    updateStatusBar();
+  }
+
+  @override
+  void didPop() {
+    isVisible = false;
+  }
+
+  @override
+  void didPushNext() {
+    isVisible = false;
+  }
+
+  @override
   void dispose() {
+    routeObserver.unsubscribe(this);
     scrollController.dispose();
     super.dispose();
   }
@@ -73,8 +99,6 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
       isSummaryUnfold = !isSummaryUnfold;
     });
   }
-
-  read() {}
 
   back() {
     Navigator.pop(context);
@@ -95,10 +119,6 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
     List<Novel> recommendNovels = [];
     recommendResponse.forEach((data) {
       recommendNovels.add(Novel.fromJson(data));
-    });
-
-    Timer(Duration(milliseconds: 500), () {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     });
 
     setState(() {
@@ -131,7 +151,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
                 Expanded(
                   child: Text(
                     novel.name,
-                    style: TextStyle(fontSize: 17, color: SQColor.darkGray, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -156,7 +176,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
               children: <Widget>[
                 Image.asset('img/home_tip.png'),
                 SizedBox(width: 13),
-                Text('书友评价', style: TextStyle(fontSize: 16, color: SQColor.darkGray)),
+                Text('书友评价', style: TextStyle(fontSize: 16)),
                 Expanded(child: Container()),
                 Image.asset('img/detail_write_comment.png'),
                 Text('  写书评', style: TextStyle(fontSize: 14, color: SQColor.primary)),
@@ -206,13 +226,24 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
     );
   }
 
+  updateStatusBar() {
+    if (navAlpha == 1) {
+      Screen.updateStatusBarStyle(SystemUiOverlayStyle.dark);
+    } else {
+      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (isVisible) {
+      updateStatusBar();
+    }
+
     if (this.novel == null) {
-      return Scaffold(appBar: AppBar(elevation: 0, brightness: Brightness.dark));
+      return Scaffold(appBar: AppBar(elevation: 0));
     }
     return Scaffold(
-      backgroundColor: SQColor.paper,
       body: Stack(
         children: <Widget>[
           Column(
@@ -225,21 +256,20 @@ class NovelDetailSceneState extends State<NovelDetailScene> {
                     NovelDetailHeader(novel),
                     NovelSummaryView(novel.introduction, isSummaryUnfold, changeSummaryMaxLines),
                     NovelDetailCell(
-                      'img/detail_latest.png',
-                      '最新',
-                      novel.lastChapter.name,
-                      Text(novel.status, style: TextStyle(fontSize: 14, color: novel.statusColor())),
+                      iconName: 'img/detail_latest.png',
+                      title: '最新',
+                      subtitle: novel.lastChapter.name,
+                      attachedWidget: Text(novel.status, style: TextStyle(fontSize: 14, color: novel.statusColor())),
                     ),
                     NovelDetailCell(
-                      'img/detail_chapter.png',
-                      '目录',
-                      '共${novel.chapterCount}章',
-                      null,
+                      iconName: 'img/detail_chapter.png',
+                      title: '目录',
+                      subtitle: '共${novel.chapterCount}章',
                     ),
                     buildTags(),
-                    Container(height: 10, color: SQColor.paper),
+                    SizedBox(height: 10),
                     buildComment(),
-                    Container(height: 10, color: SQColor.paper),
+                    SizedBox(height: 10),
                     NovelDetailRecommendView(recommendNovels),
                   ],
                 ),

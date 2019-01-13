@@ -11,7 +11,7 @@ class NovelCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Router.pushNovelDetail(context, novel);
+        AppNavigator.pushNovelDetail(context, novel);
       },
       child: Container(
         padding: EdgeInsets.all(15),

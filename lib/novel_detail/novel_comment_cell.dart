@@ -41,7 +41,7 @@ class NovelCommentCell extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.fromLTRB(35, 15, 15, 0),
-            child: Text(comment.content, style: TextStyle(fontSize: 16, color: SQColor.darkGray)),
+            child: Text(comment.content, style: TextStyle(fontSize: 16)),
           ),
         ],
       ),

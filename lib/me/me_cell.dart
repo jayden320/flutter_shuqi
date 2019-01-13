@@ -25,7 +25,7 @@ class MeCell extends StatelessWidget {
                 children: <Widget>[
                   Image.asset(iconName),
                   SizedBox(width: 20),
-                  Text(title, style: TextStyle(fontSize: 18, color: SQColor.darkGray)),
+                  Text(title, style: TextStyle(fontSize: 18)),
                   Expanded(child: Container()),
                   Image.asset('img/arrow_right.png'),
                 ],

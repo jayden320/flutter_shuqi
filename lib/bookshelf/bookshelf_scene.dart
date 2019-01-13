@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:shuqi/public.dart';
 
@@ -10,10 +11,11 @@ class BookshelfScene extends StatefulWidget {
   State<StatefulWidget> createState() => BookshelfState();
 }
 
-class BookshelfState extends State<BookshelfScene> {
+class BookshelfState extends State<BookshelfScene> with RouteAware {
   List<Novel> favoriteNovels = [];
   ScrollController scrollController = ScrollController();
   double navAlpha = 0;
+  bool isVisible = true;
 
   @override
   void initState() {
@@ -23,14 +25,12 @@ class BookshelfState extends State<BookshelfScene> {
     scrollController.addListener(() {
       var offset = scrollController.offset;
       if (offset < 0) {
-        if (navAlpha == 1) {}
         if (navAlpha != 0) {
           setState(() {
             navAlpha = 0;
           });
         }
       } else if (offset < 50) {
-        if (navAlpha == 1) {}
         setState(() {
           navAlpha = 1 - (50 - offset) / 50;
         });
@@ -40,6 +40,29 @@ class BookshelfState extends State<BookshelfScene> {
         });
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPushNext() {
+    isVisible = false;
+  }
+
+  @override
+  void didPopNext() {
+    isVisible = true;
+    updateStatusBar();
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
   }
 
   Future<void> fetchData() async {
@@ -94,7 +117,7 @@ class BookshelfState extends State<BookshelfScene> {
                 Expanded(
                   child: Text(
                     '书架',
-                    style: TextStyle(fontSize: 17, color: SQColor.darkGray, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -133,8 +156,20 @@ class BookshelfState extends State<BookshelfScene> {
     );
   }
 
+  updateStatusBar() {
+    if (navAlpha == 1) {
+      Screen.updateStatusBarStyle(SystemUiOverlayStyle.dark);
+    } else {
+      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (isVisible) {
+      updateStatusBar();
+    }
+
     return Scaffold(
       backgroundColor: SQColor.white,
       body: Stack(children: [

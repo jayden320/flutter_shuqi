@@ -107,7 +107,6 @@ class HomeListViewState extends State<HomeListView> with AutomaticKeepAliveClien
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: SQColor.paper,
       child: RefreshIndicator(
         onRefresh: fetchData,
         child: ListView.builder(

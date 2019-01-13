@@ -11,7 +11,7 @@ class HomeNovelCoverView extends StatelessWidget {
     var width = (Screen.width(context) - 15 * 2 - 15 * 3) / 4;
     return GestureDetector(
       onTap: () {
-        Router.pushNovelDetail(context, novel);
+        AppNavigator.pushNovelDetail(context, novel);
       },
       child: Container(
         width: width,

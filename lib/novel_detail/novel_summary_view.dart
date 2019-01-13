@@ -20,7 +20,7 @@ class NovelSummaryView extends StatelessWidget {
             Text(
               summary,
               maxLines: isUnfold ? null : 3,
-              style: TextStyle(fontSize: 14, color: Color(0xff333333)),
+              style: TextStyle(fontSize: 14),
             ),
             Image.asset('img/detail_fold_bg.png'),
             Image.asset(isUnfold ? 'img/detail_up.png' : 'img/detail_down.png'),

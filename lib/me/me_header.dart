@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:shuqi/public.dart';
-import 'login_scene.dart';
+import 'package:shuqi/public.dart';
 
 class MeHeader extends StatelessWidget {
   @override
@@ -13,9 +13,7 @@ class MeHeader extends StatelessWidget {
       onTap: () {
         if (UserManager.instance.isLogin) {
         } else {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return LoginScene();
-          }));
+          AppNavigator.pushLogin(context);
         }
       },
       child: Container(
@@ -34,7 +32,7 @@ class MeHeader extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     user != null ? user.nickname : '登录',
-                    style: TextStyle(fontSize: 18, color: SQColor.darkGray),
+                    style: TextStyle(fontSize: 18),
                   ),
                   SizedBox(height: 10),
                   buildItems(),
@@ -67,7 +65,7 @@ class MeHeader extends StatelessWidget {
       children: <Widget>[
         Text(
           title,
-          style: TextStyle(fontSize: 20, color: SQColor.darkGray, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 5),
         Text(

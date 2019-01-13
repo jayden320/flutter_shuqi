@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shuqi/model/novel.dart';
 import 'package:shuqi/widget/novel_cover_image.dart';
-import 'package:shuqi/app/router.dart';
+import 'package:shuqi/app/app_navigator.dart';
 
 class NovelCoverView extends StatelessWidget {
   final Novel novel;
@@ -13,7 +13,7 @@ class NovelCoverView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Router.pushNovelDetail(context, novel);
+        AppNavigator.pushNovelDetail(context, novel);
       },
       child: Container(
         width: 90,

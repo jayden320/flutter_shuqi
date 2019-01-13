@@ -92,11 +92,11 @@ class MeScene extends StatelessWidget {
         preferredSize: Size(Screen.width(context), 0),
       ),
       body: Container(
-        color: SQColor.white,
+        color: Colors.white,
         child: ListView(
           children: <Widget>[
             MeHeader(),
-            Container(height: 10, color: Colors.white),
+            SizedBox(height: 10),
             buildCells(context),
           ],
         ),

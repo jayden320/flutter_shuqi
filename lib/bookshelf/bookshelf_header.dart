@@ -80,7 +80,7 @@ class _BookshelfHeaderState extends State<BookshelfHeader> with SingleTickerProv
       color: Colors.transparent,
       child: GestureDetector(
         onTap: () {
-          Router.pushNovelDetail(context, novel);
+          AppNavigator.pushNovelDetail(context, novel);
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

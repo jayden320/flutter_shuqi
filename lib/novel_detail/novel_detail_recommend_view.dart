@@ -31,7 +31,7 @@ class NovelDetailRecommendView extends StatelessWidget {
               children: <Widget>[
                 Image.asset('img/home_tip.png'),
                 SizedBox(width: 13),
-                Text('看过本书的人还在看', style: TextStyle(fontSize: 16, color: SQColor.darkGray)),
+                Text('看过本书的人还在看', style: TextStyle(fontSize: 16)),
               ],
             ),
           ),

@@ -69,7 +69,7 @@ class LoginSceneState extends State {
       child: TextField(
         controller: phoneEditer,
         keyboardType: TextInputType.phone,
-        style: TextStyle(fontSize: 14, color: SQColor.darkGray),
+        style: TextStyle(fontSize: 14),
         decoration: InputDecoration(
           hintText: '请输入手机号',
           hintStyle: TextStyle(color: SQColor.gray),
@@ -92,10 +92,7 @@ class LoginSceneState extends State {
             child: TextField(
               controller: codeEditer,
               keyboardType: TextInputType.phone,
-              style: TextStyle(
-                fontSize: 14,
-                color: SQColor.darkGray,
-              ),
+              style: TextStyle(fontSize: 14),
               decoration: InputDecoration(
                 hintText: '请输入短信验证码',
                 hintStyle: TextStyle(color: SQColor.gray),

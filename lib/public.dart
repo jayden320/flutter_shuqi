@@ -11,9 +11,10 @@ export 'package:shuqi/widget/novel_cover_view.dart';
 // App
 export 'package:shuqi/app/constant.dart';
 export 'package:shuqi/app/request.dart';
-export 'package:shuqi/app/router.dart';
+export 'package:shuqi/app/app_navigator.dart';
 export 'package:shuqi/app/sq_color.dart';
 export 'package:shuqi/app/user_manager.dart';
+export 'package:shuqi/app/app_scene.dart';
 
 // Model
 export 'package:shuqi/model/novel.dart';
