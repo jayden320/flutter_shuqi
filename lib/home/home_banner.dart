@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import 'package:shuqi/public.dart';
 import 'home_model.dart';
 
 class HomeBanner extends StatelessWidget {
@@ -10,8 +11,6 @@ class HomeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
     if (carouselInfos.length == 0) {
       return SizedBox();
     }
@@ -23,7 +22,7 @@ class HomeBanner extends StatelessWidget {
           return Builder(
             builder: (BuildContext context) {
               return Container(
-                width: screenWidth,
+                width: Screen.width,
                 margin: EdgeInsets.symmetric(horizontal: 5.0),
                 child: Image.network(
                   info.imageUrl ?? '',

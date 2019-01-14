@@ -1,5 +1,8 @@
 library public;
 
+// Global
+export 'package:shuqi/global.dart';
+
 // Utility
 export 'package:shuqi/utility/screen.dart';
 export 'package:shuqi/utility/event_bus.dart';

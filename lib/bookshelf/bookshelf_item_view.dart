@@ -8,7 +8,7 @@ class BookshelfItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = (Screen.width(context) - 15 * 2 - 24 * 2) / 3;
+    var width = (Screen.width - 15 * 2 - 24 * 2) / 3;
     return GestureDetector(
       onTap: () {
         AppNavigator.pushNovelDetail(context, novel);

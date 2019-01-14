@@ -17,8 +17,8 @@ class _WebSceneState extends State<WebScene> {
   Widget build(BuildContext context) {
     return WebviewScaffold(
       url: this.widget.url,
-      appBar: new AppBar(
-        title: new Text(this.widget.title ?? '书旗'),
+      appBar: AppBar(
+        title: Text(this.widget.title ?? '书旗'),
         actions: <Widget>[
           GestureDetector(
             onTap: () {

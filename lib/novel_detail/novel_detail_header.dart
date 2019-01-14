@@ -10,8 +10,8 @@ class NovelDetailHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = Screen.width(context);
-    var height = 218.0 + Screen.statusBarHeight(context);
+    var width = Screen.width;
+    var height = 218.0 + Screen.topSafeHeight;
     return Container(
       width: width,
       height: height,
@@ -34,10 +34,10 @@ class NovelDetailHeader extends StatelessWidget {
   }
 
   Widget buildContent(BuildContext context) {
-    var width = Screen.width(context);
+    var width = Screen.width;
     return Container(
       width: width,
-      padding: EdgeInsets.fromLTRB(15, 54 + Screen.statusBarHeight(context), 10, 0),
+      padding: EdgeInsets.fromLTRB(15, 54 + Screen.topSafeHeight, 10, 0),
       color: Colors.transparent,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:ui' as ui show window;
 
 class Screen {
-  static width(BuildContext context) {
-    return MediaQuery.of(context).size.width;
+  static MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
+
+  static double get width {
+    return mediaQuery.size.width;
+  }
+  
+  static double get height {
+    return mediaQuery.size.height;
   }
 
-  static navigationBarHeight(BuildContext context) {
-    return MediaQuery.of(context).padding.top + 44;
+  static double get scale {
+    return mediaQuery.devicePixelRatio;
   }
 
-  static statusBarHeight(BuildContext context) {
-    return MediaQuery.of(context).padding.top;
+  static double get navigationBarHeight {
+    return mediaQuery.padding.top + kToolbarHeight;
   }
 
-  static bottomSafeHeight(BuildContext context) {
-    return MediaQuery.of(context).padding.bottom;
+  static double get topSafeHeight {
+    return mediaQuery.padding.top;
+  }
+
+  static double get bottomSafeHeight {
+    return mediaQuery.padding.bottom;
   }
 
   static updateStatusBarStyle(SystemUiOverlayStyle style) {

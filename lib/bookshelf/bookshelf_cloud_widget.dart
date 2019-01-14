@@ -7,7 +7,7 @@ class BookshelfCloudWidget extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = Screen.width(context);
+    var width = Screen.width;
     final Animation<double> animation = listenable;
     return Container(
       width: width,

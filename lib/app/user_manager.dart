@@ -1,33 +1,29 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import 'package:shuqi/utility/event_bus.dart';
+import 'package:shuqi/global.dart';
 
 const String EventUserLogin = 'EventUserLogin';
 const String EventUserLogout = 'EventUserLogout';
 
 class UserManager {
-
   static UserManager _instance;
-  static UserManager get instance => _getInstance();
-  static UserManager _getInstance() {
+  static UserManager get instance {
     if (_instance == null) {
-      _instance = new UserManager();
+      _instance = UserManager();
+      _instance.loadUserFromLocal();
     }
     return _instance;
   }
 
   User user;
   static User get currentUser {
-    return _instance.user;
+    return UserManager.instance.user;
   }
 
-  logout() async {
+  logout() {
     this.user = null;
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('user');
-
+    preferences.remove('user');
     eventBus.emit(EventUserLogout);
   }
 
@@ -43,19 +39,16 @@ class UserManager {
     return user != null;
   }
 
-  Future<User> loadUserFromLocal() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String userJson = prefs.getString('user');
+  loadUserFromLocal() {
+    String userJson = preferences.getString('user');
     if (userJson != null) {
       user = User.fromJson(json.decode(userJson));
     }
-    return user;
   }
 
   void saveUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     var data = json.encode(user);
-    prefs.setString('user', data);
+    preferences.setString('user', data);
   }
 }
 

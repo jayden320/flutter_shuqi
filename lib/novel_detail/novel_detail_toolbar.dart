@@ -7,9 +7,9 @@ class NovelDetailToolbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: Screen.bottomSafeHeight(context)),
+      padding: EdgeInsets.only(bottom: Screen.bottomSafeHeight),
       color: Colors.white,
-      height: 50 + Screen.bottomSafeHeight(context),
+      height: 50 + Screen.bottomSafeHeight,
       child: Row(children: <Widget>[
         Expanded(
           child: Center(

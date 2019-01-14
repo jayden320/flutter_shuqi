@@ -133,14 +133,14 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
       children: <Widget>[
         Container(
           width: 44,
-          margin: EdgeInsets.fromLTRB(5, Screen.statusBarHeight(context), 0, 0),
+          margin: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
           child: GestureDetector(onTap: back, child: Image.asset('img/pub_back_white.png')),
         ),
         Opacity(
           opacity: navAlpha,
           child: Container(
-            padding: EdgeInsets.fromLTRB(5, Screen.statusBarHeight(context), 0, 0),
-            height: Screen.navigationBarHeight(context),
+            padding: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
+            height: Screen.navigationBarHeight,
             color: SQColor.white,
             child: Row(
               children: <Widget>[

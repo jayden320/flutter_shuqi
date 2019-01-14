@@ -94,15 +94,15 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
         Positioned(
           right: 0,
           child: Container(
-            margin: EdgeInsets.fromLTRB(5, Screen.statusBarHeight(context), 0, 0),
+            margin: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
             child: buildActions(SQColor.white),
           ),
         ),
         Opacity(
           opacity: navAlpha,
           child: Container(
-            padding: EdgeInsets.fromLTRB(5, Screen.statusBarHeight(context), 0, 0),
-            height: Screen.navigationBarHeight(context),
+            padding: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
+            height: Screen.navigationBarHeight,
             color: SQColor.white,
             child: Row(
               children: <Widget>[
@@ -133,7 +133,7 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
     novels.forEach((novel) {
       children.add(BookshelfItemView(novel));
     });
-    var width = (Screen.width(context) - 15 * 2 - 24 * 2) / 3;
+    var width = (Screen.width - 15 * 2 - 24 * 2) / 3;
     children.add(GestureDetector(
       onTap: () {
         eventBus.emit(EventToggleTabBarIndex, 1);

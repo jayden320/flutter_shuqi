@@ -91,7 +91,7 @@ class MeScene extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         child: Container(color: SQColor.white),
-        preferredSize: Size(Screen.width(context), 0),
+        preferredSize: Size(Screen.width, 0),
       ),
       body: Container(
         color: Colors.white,
