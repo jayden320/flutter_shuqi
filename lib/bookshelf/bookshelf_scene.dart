@@ -124,6 +124,10 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
   }
 
   Widget buildFavoriteView() {
+    if (favoriteNovels.length <= 1) {
+      return Container();
+    }
+
     List<Widget> children = [];
     var novels = favoriteNovels.sublist(1);
     novels.forEach((novel) {
