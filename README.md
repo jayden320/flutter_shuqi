@@ -61,6 +61,9 @@ If you have any suggestions, leave a message here
 
 App中的网络请求均通过一个名为**Request**的工具类。在Request内部，通过**本地mock**方式，获取模拟数据。
 
+[安卓版扫码下载](https://www.pgyer.com/shuqinovel)
+![image.png](https://upload-images.jianshu.io/upload_images/5685774-a37c28262e46ba76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ## 第三方依赖
 
 * [carousel_slider](https://pub.flutter-io.cn/packages/carousel_slider)
