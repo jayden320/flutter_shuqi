@@ -22,7 +22,7 @@ class ReaderScene extends StatefulWidget {
   ReaderSceneState createState() => ReaderSceneState();
 }
 
-class ReaderSceneState extends State<ReaderScene> {
+class ReaderSceneState extends State<ReaderScene> with RouteAware {
   int articleId;
   int pageIndex = 0;
   bool isMenuVisiable = false;
@@ -38,20 +38,28 @@ class ReaderSceneState extends State<ReaderScene> {
     articleId = this.widget.articleId;
     pageController.addListener(() {
       var offset = pageController.offset;
-      var pageCount = article.pageOffsets.length;
       var contentWidth = Screen.width;
 
       if (offset < 0 && !isLoading && article.preArticleId > 0) {
-        isLoading = true;
         previousPage();
       }
-      if (offset / contentWidth > pageCount - 1  && !isLoading) {
-        isLoading = true;
+      if (offset / contentWidth > article.pageCount - 1 && !isLoading && article.nextArticleId > 0) {
         nextPage();
       }
     });
 
     setup();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void didPop() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
 
   @override
@@ -97,31 +105,43 @@ class ReaderSceneState extends State<ReaderScene> {
     }
   }
 
+  onPageChanged(int index) {
+    setState(() {
+      pageIndex = index;
+    });
+  }
+
   previousPage() async {
     if (pageIndex == 0 && article.preArticleId == 0) {
       Toast.show('已经是第一页了');
       return;
     }
 
+    isLoading = true;
     if (pageIndex == 0) {
+      // 上一章
       Article preArticle = await fetchArticle(article.preArticleId);
-      pageIndex = preArticle.pageOffsets.length - 1;
+      pageIndex = preArticle.pageCount - 1;
       pageController.jumpToPage(pageIndex);
       setState(() {
         isLoading = false;
         article = preArticle;
       });
     } else {
+      // 上一页
       pageController.previousPage(duration: Duration(milliseconds: 250), curve: Curves.easeOut);
     }
   }
 
   nextPage() async {
-    if (pageIndex >= article.pageOffsets.length - 1 && article.nextArticleId == 0) {
+    if (pageIndex >= article.pageCount - 1 && article.nextArticleId == 0) {
       Toast.show('已经是最后一页了');
       return;
     }
-    if (pageIndex >= article.pageOffsets.length - 1) {
+
+    isLoading = true;
+    if (pageIndex >= article.pageCount - 1) {
+      // 下一章
       Article nextArticle = await fetchArticle(article.nextArticleId);
       pageIndex = 0;
       pageController.jumpToPage(pageIndex);
@@ -130,8 +150,26 @@ class ReaderSceneState extends State<ReaderScene> {
         article = nextArticle;
       });
     } else {
+      // 下一页
       pageController.nextPage(duration: Duration(milliseconds: 250), curve: Curves.easeOut);
     }
+  }
+
+  Widget buildPage(BuildContext context, int index) {
+    var content = article.stringAtPageIndex(index);
+    return GestureDetector(
+      onTapUp: (TapUpDetails details) {
+        onTap(details.globalPosition);
+      },
+      child: Container(
+        color: Colors.transparent,
+        margin: EdgeInsets.fromLTRB(15, topSafeHeight + ReaderUtils.topOffset, 10, Screen.bottomSafeHeight + ReaderUtils.bottomOffset),
+        child: Text.rich(
+          TextSpan(children: [TextSpan(text: content, style: TextStyle(fontSize: fixedFontSize(ReaderConfig.instance.fontSize)))]),
+          textAlign: TextAlign.justify,
+        ),
+      ),
+    );
   }
 
   buildOverlayer() {
@@ -166,29 +204,11 @@ class ReaderSceneState extends State<ReaderScene> {
 
     return Container(
       child: PageView.builder(
+        physics: BouncingScrollPhysics(),
         controller: pageController,
-        itemCount: article != null ? article.pageOffsets.length : 0,
-        itemBuilder: (BuildContext context, int index) {
-          var content = article.stringAtPageIndex(index);
-          return GestureDetector(
-            onTapUp: (TapUpDetails details) {
-              onTap(details.globalPosition);
-            },
-            child: Container(
-              color: Colors.transparent,
-              margin: EdgeInsets.fromLTRB(15, topSafeHeight + ReaderUtils.topOffset, 10, Screen.bottomSafeHeight + ReaderUtils.bottomOffset),
-              child: Text.rich(
-                TextSpan(children: [TextSpan(text: content, style: TextStyle(fontSize: fixedFontSize(ReaderConfig.instance.fontSize)))]),
-                textAlign: TextAlign.justify,
-              ),
-            ),
-          );
-        },
-        onPageChanged: (int index) {
-          setState(() {
-            pageIndex = index;
-          });
-        },
+        itemCount: article.pageCount,
+        itemBuilder: buildPage,
+        onPageChanged: onPageChanged,
       ),
     );
   }

@@ -48,7 +48,6 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
               width: 44,
               child: GestureDetector(
                 onTap: () {
-                  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
                   Navigator.pop(context);
                 },
                 child: Image.asset('img/pub_back_white.png'),

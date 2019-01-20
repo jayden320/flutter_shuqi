@@ -27,4 +27,8 @@ class Article {
     var offset = pageOffsets[index];
     return this.content.substring(offset['start'], offset['end']);
   }
+
+  int get pageCount {
+    return pageOffsets.length;
+  }
 }
