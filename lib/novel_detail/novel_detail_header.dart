@@ -48,11 +48,11 @@ class NovelDetailHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(novel.name, style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)),
+                Text(novel.name, style: TextStyle(fontSize: fixedFontSize(18), color: Colors.white, fontWeight: FontWeight.bold)),
                 SizedBox(height: 10),
-                Text(novel.author, style: TextStyle(fontSize: 14, color: SQColor.white)),
+                Text(novel.author, style: TextStyle(fontSize: fixedFontSize(14), color: SQColor.white)),
                 SizedBox(height: 10),
-                Text('${novel.wordCount}万字 ${novel.price}书豆/千字', style: TextStyle(fontSize: 14, color: SQColor.white)),
+                Text('${novel.wordCount}万字 ${novel.price}书豆/千字', style: TextStyle(fontSize: fixedFontSize(14), color: SQColor.white)),
                 SizedBox(height: 10),
                 buildScore(),
                 SizedBox(height: 10),
@@ -63,7 +63,7 @@ class NovelDetailHeader extends StatelessWidget {
                     Expanded(
                       child: Text(
                         ' 续费包月会员，万本小说免费读 >',
-                        style: TextStyle(fontSize: 14, color: Color(0xFFFEA900)),
+                        style: TextStyle(fontSize: fixedFontSize(14), color: Color(0xFFFEA900)),
                         maxLines: 1,
                       ),
                     ),
@@ -78,7 +78,7 @@ class NovelDetailHeader extends StatelessWidget {
   }
 
   Widget buildScore() {
-    List<Widget> children = [Text('评分：${novel.score}分  ', style: TextStyle(fontSize: 14, color: Color(0xfff8e71c)))];
+    List<Widget> children = [Text('评分：${novel.score}分  ', style: TextStyle(fontSize: fixedFontSize(14), color: Color(0xfff8e71c)))];
 
     var star = novel.score;
 

@@ -43,34 +43,38 @@ class HomeListViewState extends State<HomeListView> with AutomaticKeepAliveClien
   bool get wantKeepAlive => true;
 
   Future<void> fetchData() async {
-    var action;
-    switch (this.widget.type) {
-      case HomeListType.excellent:
-        action = 'home_excellent';
-        break;
-      case HomeListType.female:
-        action = 'home_female';
-        break;
-      case HomeListType.male:
-        action = 'home_male';
-        break;
-      case HomeListType.cartoon:
-        action = 'home_cartoon';
-        break;
-      default:
-        break;
-    }
-    var responseJson = await Request.get(action: action);
-    List moduleData = responseJson['module'];
-    List<HomeModule> modules = [];
-    moduleData.forEach((data) {
-      modules.add(HomeModule.fromJson(data));
-    });
+    try {
+      var action;
+      switch (this.widget.type) {
+        case HomeListType.excellent:
+          action = 'home_excellent';
+          break;
+        case HomeListType.female:
+          action = 'home_female';
+          break;
+        case HomeListType.male:
+          action = 'home_male';
+          break;
+        case HomeListType.cartoon:
+          action = 'home_cartoon';
+          break;
+        default:
+          break;
+      }
+      var responseJson = await Request.get(action: action);
+      List moduleData = responseJson['module'];
+      List<HomeModule> modules = [];
+      moduleData.forEach((data) {
+        modules.add(HomeModule.fromJson(data));
+      });
 
-    setState(() {
-      this.modules = modules;
-      this.carouselInfos = carouselInfos;
-    });
+      setState(() {
+        this.modules = modules;
+        this.carouselInfos = carouselInfos;
+      });
+    } catch (e) {
+      Toast.show(e.toString());
+    }
   }
 
   Widget bookCardWithInfo(HomeModule module) {

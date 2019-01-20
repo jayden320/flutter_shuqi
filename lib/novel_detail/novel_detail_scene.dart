@@ -67,7 +67,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   void didPush() {
     // 间隔500毫秒后，再设置状态栏样式。否则设置无效（会被build覆盖？）。
     Timer(Duration(milliseconds: 500), () {
-      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
+      updateStatusBar();
     });
   }
 
@@ -105,27 +105,31 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   }
 
   fetchData() async {
-    var novelId = this.widget.novelId;
+    try {
+      var novelId = this.widget.novelId;
 
-    var novelResponse = await Request.post(action: 'novel_detail', params: {'id': novelId});
+      var novelResponse = await Request.post(action: 'novel_detail', params: {'id': novelId});
 
-    var commentsResponse = await Request.post(action: 'novel_comment', params: {'id': novelId});
-    List<NovelComment> comments = [];
-    commentsResponse.forEach((data) {
-      comments.add(NovelComment.fromJson(data));
-    });
+      var commentsResponse = await Request.post(action: 'novel_comment', params: {'id': novelId});
+      List<NovelComment> comments = [];
+      commentsResponse.forEach((data) {
+        comments.add(NovelComment.fromJson(data));
+      });
 
-    var recommendResponse = await Request.post(action: 'novel_recommend', params: {'id': novelId});
-    List<Novel> recommendNovels = [];
-    recommendResponse.forEach((data) {
-      recommendNovels.add(Novel.fromJson(data));
-    });
+      var recommendResponse = await Request.post(action: 'novel_recommend', params: {'id': novelId});
+      List<Novel> recommendNovels = [];
+      recommendResponse.forEach((data) {
+        recommendNovels.add(Novel.fromJson(data));
+      });
 
-    setState(() {
-      this.novel = Novel.fromJson(novelResponse);
-      this.comments = comments;
-      this.recommendNovels = recommendNovels;
-    });
+      setState(() {
+        this.novel = Novel.fromJson(novelResponse);
+        this.comments = comments;
+        this.recommendNovels = recommendNovels;
+      });
+    } catch (e) {
+      Toast.show(e.toString());
+    }
   }
 
   Widget buildNavigationBar() {
@@ -274,7 +278,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
                   ],
                 ),
               ),
-              NovelDetailToolbar(),
+              NovelDetailToolbar(novel),
             ],
           ),
           buildNavigationBar(),

@@ -25,6 +25,9 @@ dependencies:
   shared_preferences: ^0.4.3
   flutter_webview_plugin: ^0.3.0
   share: ^0.5.3
+  fluttertoast: ^2.2.6
+  battery: ^0.2.3
+  intl: ^0.15.7
 
 dev_dependencies:
   flutter_test:

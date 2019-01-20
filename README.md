@@ -8,11 +8,15 @@
 
 <img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_1.png">
 
+<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_2.png">
+
 ## screen shot for Android
 
 <img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_0.png">
 
 <img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_1.png">
+
+<img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/android_2.png">
 
 ## Setup
 

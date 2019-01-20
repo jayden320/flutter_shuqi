@@ -1,11 +1,15 @@
 library public;
 
+// Vendor
+
 // Global
 export 'package:shuqi/global.dart';
 
 // Utility
+export 'package:shuqi/utility/utility.dart';
 export 'package:shuqi/utility/screen.dart';
 export 'package:shuqi/utility/event_bus.dart';
+export 'package:shuqi/utility/toast.dart';
 
 // Widget
 export 'package:shuqi/widget/novel_cover_image.dart';
@@ -23,3 +27,4 @@ export 'package:shuqi/app/app_scene.dart';
 export 'package:shuqi/model/novel.dart';
 export 'package:shuqi/model/chapter.dart';
 export 'package:shuqi/model/novel_comment.dart';
+export 'package:shuqi/model/article.dart';

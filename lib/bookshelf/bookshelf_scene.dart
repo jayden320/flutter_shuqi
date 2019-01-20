@@ -70,7 +70,7 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
         this.favoriteNovels = favoriteNovels;
       });
     } catch (e) {
-      print(e);
+      Toast.show(e.toString());
     }
   }
 

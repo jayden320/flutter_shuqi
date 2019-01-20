@@ -2,7 +2,7 @@
   "state": 200,
   "message": "success",
   "data": {
-    "bid": "6900908",
+    "bid": "1945",
     "bookname": "逆天神医",
     "comment_count":"486547",
     "book_cover": "http://img-tailor.11222.cn/bcv/big/201901031812421599.jpg",
@@ -23,6 +23,7 @@
     "lastInsTime": 1546697715,
     "payMode": "3",
     "price": "0.5",
+    "first_article_id":1000,
     "tag": [
       "神医",
       "医术",
