@@ -74,6 +74,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
       left: 0,
       right: 0,
       child: Container(
+        padding: EdgeInsets.only(bottom: Screen.bottomSafeHeight),
         color: SQColor.darkGray,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
