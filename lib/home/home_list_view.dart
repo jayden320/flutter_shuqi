@@ -16,7 +16,7 @@ enum HomeListType {
   female,
   cartoon,
 }
-
+// 书城列表
 class HomeListView extends StatefulWidget {
   final HomeListType type;
 
@@ -73,6 +73,7 @@ class HomeListViewState extends State<HomeListView> with AutomaticKeepAliveClien
     });
   }
 
+  // 书籍卡片widget
   Widget bookCardWithInfo(HomeModule module) {
     Widget card;
     switch (module.style) {

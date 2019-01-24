@@ -5,7 +5,7 @@ import 'package:shuqi/public.dart';
 
 import 'bookshelf_item_view.dart';
 import 'bookshelf_header.dart';
-
+// 书架场景
 class BookshelfScene extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => BookshelfState();
@@ -20,7 +20,7 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
   void initState() {
     super.initState();
     fetchData();
-
+    // 滚动监听 设置状态栏显示或隐藏
     scrollController.addListener(() {
       var offset = scrollController.offset;
       if (offset < 0) {
@@ -73,7 +73,7 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
       print(e);
     }
   }
-
+  // 顶部右侧按钮
   Widget buildActions(Color iconColor) {
     return Row(children: <Widget>[
       Container(
@@ -87,7 +87,7 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
       SizedBox(width: 15)
     ]);
   }
-
+  // 顶部导航
   Widget buildNavigationBar() {
     return Stack(
       children: <Widget>[
@@ -122,7 +122,7 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
       ],
     );
   }
-
+  // 收藏view 
   Widget buildFavoriteView() {
     if (favoriteNovels.length <= 1) {
       return Container();
@@ -136,6 +136,7 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
     var width = (Screen.width - 15 * 2 - 24 * 2) / 3;
     children.add(GestureDetector(
       onTap: () {
+        // 点击收藏会触发切换tabbar的事件
         eventBus.emit(EventToggleTabBarIndex, 1);
       },
       child: Container(
@@ -165,6 +166,7 @@ class BookshelfState extends State<BookshelfScene> with RouteAware {
             padding: EdgeInsets.only(top: 0),
             controller: scrollController,
             children: <Widget>[
+              //构建顶部widget
               favoriteNovels.length > 0 ? BookshelfHeader(favoriteNovels[0]) : Container(),
               buildFavoriteView(),
             ],

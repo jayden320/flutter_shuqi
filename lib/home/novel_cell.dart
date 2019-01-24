@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shuqi/public.dart';
 
+// 小说单元格
 class NovelCell extends StatelessWidget {
   final Novel novel;
 

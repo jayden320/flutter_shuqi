@@ -4,7 +4,7 @@ import 'novel_grid_item.dart';
 import 'home_section_view.dart';
 import 'home_novel_cover_view.dart';
 import 'home_model.dart';
-
+// 小说 混合的卡片
 class NovelSecondHybirdCard extends StatelessWidget {
   final HomeModule cardInfo;
 

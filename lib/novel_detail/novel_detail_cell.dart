@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shuqi/public.dart';
-
+// 小说详情单元格
 class NovelDetailCell extends StatelessWidget {
   final String iconName;
   final String title;

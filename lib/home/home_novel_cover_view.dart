@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shuqi/public.dart';
 
+// 小说封面widget
 class HomeNovelCoverView extends StatelessWidget {
   final Novel novel;
   HomeNovelCoverView(this.novel);

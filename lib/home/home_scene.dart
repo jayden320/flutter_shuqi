@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shuqi/public.dart';
 
 import 'home_list_view.dart';
-
+// 书城场景
 class HomeScene extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => HomeSceneState();
@@ -12,6 +12,7 @@ class HomeScene extends StatefulWidget {
 class HomeSceneState extends State<HomeScene> {
   @override
   Widget build(BuildContext context) {
+    // tabbar 添加4个tab
     return DefaultTabController(
       length: 4,
       child: Scaffold(

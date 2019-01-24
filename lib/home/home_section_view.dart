@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// 小说分组widget
 class HomeSectionView extends StatelessWidget {
   final String title;
   HomeSectionView(this.title);

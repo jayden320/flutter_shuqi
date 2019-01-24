@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// 颜色管理
 class SQColor {
   static Color primary = Color(0xFF23B38E);
   static Color secondary = Color(0xFF51DEC6);

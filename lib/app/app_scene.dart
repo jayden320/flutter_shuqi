@@ -3,8 +3,9 @@ import 'package:shuqi/public.dart';
 import 'package:shuqi/app/root_scene.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
-
+// App场景
 class AppScene extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

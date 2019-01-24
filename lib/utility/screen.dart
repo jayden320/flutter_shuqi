@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui' as ui show window;
 
+// 屏幕相关工具类
 class Screen {
   static MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:shuqi/public.dart';
-
+// 小说评论单元格
 class NovelCommentCell extends StatelessWidget {
   final NovelComment comment;
 

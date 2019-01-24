@@ -1,3 +1,4 @@
+// 小说评论
 class NovelComment {
   String nickname;
   String avatar;

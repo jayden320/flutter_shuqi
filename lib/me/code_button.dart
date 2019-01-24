@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shuqi/app/sq_color.dart';
 
+// 验证码按钮
 class CodeButton extends StatelessWidget {
   final VoidCallback onPressed;
   final int coldDownSeconds;

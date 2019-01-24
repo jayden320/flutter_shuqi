@@ -4,6 +4,7 @@ import 'home_model.dart';
 import 'home_section_view.dart';
 import 'home_novel_cover_view.dart';
 
+// 4个小说格子widget
 class NovelFourGridView extends StatelessWidget {
   final HomeModule cardInfo;
 

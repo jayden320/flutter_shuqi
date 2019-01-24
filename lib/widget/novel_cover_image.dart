@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:shuqi/app/sq_color.dart';
-
+// 小说封面图片
 class NovelCoverImage extends StatelessWidget {
   final String imgUrl;
   final double width;

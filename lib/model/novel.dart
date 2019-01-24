@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shuqi/app/sq_color.dart';
 
 import 'chapter.dart';
-
+// 小说
 class Novel {
   String id;
   String name;

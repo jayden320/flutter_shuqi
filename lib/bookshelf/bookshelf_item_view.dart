@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shuqi/public.dart';
-
+// 书城小说项
 class BookshelfItemView extends StatelessWidget {
   final Novel novel;
   BookshelfItemView(this.novel);

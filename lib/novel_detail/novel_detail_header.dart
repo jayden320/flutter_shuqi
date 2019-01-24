@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:ui' as ui;
 
 import 'package:shuqi/public.dart';
-
+// 小说详情头部
 class NovelDetailHeader extends StatelessWidget {
   final Novel novel;
   NovelDetailHeader(this.novel);
@@ -24,6 +24,7 @@ class NovelDetailHeader extends StatelessWidget {
             height: height,
           ),
           Container(color: Color(0xbb000000), width: width, height: height),
+          // 背景模糊图片
           BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
             child: buildContent(context),

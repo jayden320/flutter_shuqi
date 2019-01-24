@@ -5,7 +5,7 @@ import 'package:shuqi/public.dart';
 import 'package:shuqi/novel_detail/novel_detail_scene.dart';
 import 'package:shuqi/me/login_scene.dart';
 import 'package:shuqi/me/web_scene.dart';
-
+// app导航器，统一管理路由
 class AppNavigator {
   static push(BuildContext context, Widget scene) {
     Navigator.push(

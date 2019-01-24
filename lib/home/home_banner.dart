@@ -3,7 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:shuqi/public.dart';
 import 'home_model.dart';
-
+/*
+ * 顶部旋转自动播放widget 
+ */
 class HomeBanner extends StatelessWidget {
   final List<CarouselInfo> carouselInfos;
 

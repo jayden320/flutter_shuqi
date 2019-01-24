@@ -10,7 +10,7 @@ import 'novel_detail_toolbar.dart';
 import 'novel_detail_recommend_view.dart';
 import 'novel_detail_cell.dart';
 import 'novel_comment_cell.dart';
-
+// 小说详情场景
 class NovelDetailScene extends StatefulWidget {
   final String novelId;
 
@@ -37,6 +37,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
     super.initState();
     fetchData();
 
+    // 获取滚动offset偏移量设置Opacity显示或隐藏
     scrollController.addListener(() {
       var offset = scrollController.offset;
       if (offset < 0) {

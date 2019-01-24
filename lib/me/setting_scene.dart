@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shuqi/public.dart';
-
+// 设置场景
 class SettingScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

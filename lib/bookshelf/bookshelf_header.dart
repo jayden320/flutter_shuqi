@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shuqi/public.dart';
 
 import 'bookshelf_cloud_widget.dart';
-
+// 书城顶部widget
 class BookshelfHeader extends StatefulWidget {
   final Novel novel;
 
@@ -22,7 +22,7 @@ class _BookshelfHeaderState extends State<BookshelfHeader> with SingleTickerProv
     super.initState();
     controller = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
     animation = Tween(begin: 0.0, end: 1.0).animate(controller);
-
+    // 设置云朵上下浮动动画
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         controller.reverse();
@@ -69,7 +69,7 @@ class _BookshelfHeaderState extends State<BookshelfHeader> with SingleTickerProv
       ),
     );
   }
-
+  // 顶部小说内容
   Widget buildContent(BuildContext context) {
     Novel novel = this.widget.novel;
 

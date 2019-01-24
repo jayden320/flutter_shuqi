@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shuqi/public.dart';
-
+// 小说卡片项
 class NovelGridItem extends StatelessWidget {
   final Novel novel;
 

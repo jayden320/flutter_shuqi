@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shuqi/public.dart';
-
+// 书城云朵widget，带动画的那种，4张图片相间切换动画
 class BookshelfCloudWidget extends AnimatedWidget {
   final double width;
   BookshelfCloudWidget({Animation<double> animation, this.width}) : super(listenable: animation);

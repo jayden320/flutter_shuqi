@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shuqi/public.dart';
 
 import 'package:shuqi/home/home_novel_cover_view.dart';
-
+// 小说详情推荐
 class NovelDetailRecommendView extends StatelessWidget {
   final List<Novel> novels;
 

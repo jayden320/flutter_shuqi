@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'dart:async';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
-
+// 请求工具
 class Request {
   static const String baseUrl = 'http://www.shuqi.com/';
 

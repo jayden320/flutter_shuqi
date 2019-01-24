@@ -7,7 +7,7 @@ import 'package:shuqi/public.dart';
 import 'package:shuqi/home/home_scene.dart';
 import 'package:shuqi/bookshelf/bookshelf_scene.dart';
 import 'package:shuqi/me/me_scene.dart';
-
+// 入口场景
 class RootScene extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => RootSceneState();
@@ -33,6 +33,7 @@ class RootSceneState extends State<RootScene> {
 
     setupApp();
 
+    // 订阅事件
     eventBus.on(EventUserLogin, (arg) {
       setState(() {});
     });

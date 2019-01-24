@@ -5,7 +5,7 @@ import 'package:shuqi/global.dart';
 
 const String EventUserLogin = 'EventUserLogin';
 const String EventUserLogout = 'EventUserLogout';
-
+// 用户管理器, 保存用户信息到preferences中
 class UserManager {
   static UserManager _instance;
   static UserManager get instance {

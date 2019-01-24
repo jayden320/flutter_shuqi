@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shuqi/public.dart';
-
+// 小说详情页的地步工具栏
 class NovelDetailToolbar extends StatelessWidget {
   read() {}
   @override

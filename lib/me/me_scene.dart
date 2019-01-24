@@ -4,8 +4,9 @@ import 'package:shuqi/public.dart';
 import 'me_header.dart';
 import 'setting_scene.dart';
 import 'me_cell.dart';
-
+// 我的 场景
 class MeScene extends StatelessWidget {
+  // 构建单元格
   Widget buildCells(BuildContext context) {
     return Container(
       child: Column(

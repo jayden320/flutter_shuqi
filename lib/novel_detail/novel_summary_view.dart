@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// 小说详情摘要
 class NovelSummaryView extends StatelessWidget {
   final String summary;
   final bool isUnfold;

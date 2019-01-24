@@ -4,7 +4,7 @@ import 'novel_cell.dart';
 import 'novel_grid_item.dart';
 import 'home_section_view.dart';
 import 'home_model.dart';
-
+// 第一种混合卡片
 class NovelFirstHybirdCard extends StatelessWidget {
   final HomeModule cardInfo;
 

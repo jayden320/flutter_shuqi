@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:shuqi/public.dart';
 
 import 'code_button.dart';
-
+// 登录场景
 class LoginScene extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => LoginSceneState();

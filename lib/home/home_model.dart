@@ -1,5 +1,6 @@
 import 'package:shuqi/model/novel.dart';
 
+// 书城实体类，提供一些工具方法
 class HomeModule {
   String id;
   String name;

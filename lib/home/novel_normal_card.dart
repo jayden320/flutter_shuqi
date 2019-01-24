@@ -4,6 +4,7 @@ import 'home_model.dart';
 import 'novel_cell.dart';
 import 'home_section_view.dart';
 
+// 小说普通的卡片
 class NovelNormalCard extends StatelessWidget {
   final HomeModule cardInfo;
 

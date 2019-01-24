@@ -4,6 +4,7 @@ import 'package:shuqi/public.dart';
 
 import 'home_model.dart';
 
+// 书城菜单
 class HomeMenu extends StatelessWidget {
   final List<MenuInfo> infos;
 
