@@ -228,21 +228,22 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   buildOverlayer() {
     var format = DateFormat('HH:mm');
     var time = format.format(DateTime.now());
+    var textColor = Color(0xff8B7961);
 
     return Container(
       padding: EdgeInsets.fromLTRB(15, 10 + topSafeHeight, 15, 10 + Screen.bottomSafeHeight),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(article.title, style: TextStyle(fontSize: fixedFontSize(14), color: SQColor.gray)),
+          Text(article.title, style: TextStyle(fontSize: fixedFontSize(14), color: textColor)),
           Expanded(child: Container()),
           Row(
             children: <Widget>[
               BatteryView(),
               SizedBox(width: 10),
-              Text(time, style: TextStyle(fontSize: fixedFontSize(11), color: SQColor.gray)),
+              Text(time, style: TextStyle(fontSize: fixedFontSize(11), color: textColor)),
               Expanded(child: Container()),
-              Text('第${pageIndex + 1}页', style: TextStyle(fontSize: fixedFontSize(11), color: SQColor.gray)),
+              Text('第${pageIndex + 1}页', style: TextStyle(fontSize: fixedFontSize(11), color: textColor)),
             ],
           ),
         ],
@@ -311,6 +312,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     return Scaffold(
       body: Stack(
         children: <Widget>[
+          Positioned(left: 0, top: 0, right: 0, bottom: 0, child: Image.asset('img/read_bg.png', fit: BoxFit.cover)),
           buildOverlayer(),
           buildContent(),
           buildMenu(),

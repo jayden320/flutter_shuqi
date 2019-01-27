@@ -104,26 +104,24 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
       return Container();
     }
     Chapter chapter = this.widget.chapters[currentArticleIndex()];
-    double percentage = chapter.index / this.widget.chapters.length * 100;
+    double percentage = chapter.index / (this.widget.chapters.length - 1) * 100;
     return Container(
-      color: Color(0xff00C88D),
+      decoration: BoxDecoration(color: Color(0xff00C88D), borderRadius: BorderRadius.circular(5)),
       margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
       padding: EdgeInsets.all(15),
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(chapter.title, style: TextStyle(color: Colors.white, fontSize: 18)),
-            Text('${percentage.toStringAsFixed(1)}%', style: TextStyle(color: SQColor.lightGray, fontSize: 14)),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(chapter.title, style: TextStyle(color: Colors.white, fontSize: 16)),
+          Text('${percentage.toStringAsFixed(1)}%', style: TextStyle(color: SQColor.lightGray, fontSize: 12)),
+        ],
       ),
     );
   }
 
   buildProgressView() {
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
       child: Row(
         children: <Widget>[
           GestureDetector(
@@ -134,7 +132,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
               });
             },
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(20),
               child: Image.asset('img/read_icon_chapter_previous.png'),
             ),
           ),
@@ -163,7 +161,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
               });
             },
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(20),
               child: Image.asset('img/read_icon_chapter_next.png'),
             ),
           )
