@@ -87,7 +87,7 @@ class _BookshelfHeaderState extends State<BookshelfHeader> with SingleTickerProv
           children: <Widget>[
             DecoratedBox(
               child: NovelCoverImage(novel.imgUrl, width: 120, height: 160),
-              decoration: BoxDecoration(boxShadow: [BoxShadow(color: Color(0x22000000), blurRadius: 8)]),
+              decoration: BoxDecoration(boxShadow: Styles.borderShadow),
             ),
             SizedBox(width: 20),
             Expanded(

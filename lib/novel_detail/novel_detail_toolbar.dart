@@ -11,7 +11,7 @@ class NovelDetailToolbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(bottom: Screen.bottomSafeHeight),
-      color: Colors.white,
+      decoration: BoxDecoration(color: Colors.white, boxShadow: Styles.borderShadow),
       height: 50 + Screen.bottomSafeHeight,
       child: Row(children: <Widget>[
         Expanded(

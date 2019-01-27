@@ -10,6 +10,7 @@ export 'package:shuqi/utility/utility.dart';
 export 'package:shuqi/utility/screen.dart';
 export 'package:shuqi/utility/event_bus.dart';
 export 'package:shuqi/utility/toast.dart';
+export 'package:shuqi/utility/styles.dart';
 
 // Widget
 export 'package:shuqi/widget/novel_cover_image.dart';

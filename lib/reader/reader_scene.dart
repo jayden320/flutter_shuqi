@@ -65,7 +65,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     await SystemChrome.setEnabledSystemUIOverlays([]);
     // 不延迟的话，安卓获取到的topSafeHeight是错的。
     await Future.delayed(const Duration(milliseconds: 100), () {});
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
     topSafeHeight = Screen.topSafeHeight;
 

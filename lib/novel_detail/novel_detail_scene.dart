@@ -143,9 +143,9 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
         Opacity(
           opacity: navAlpha,
           child: Container(
+            decoration: BoxDecoration(color: SQColor.white, boxShadow: Styles.borderShadow),
             padding: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
             height: Screen.navigationBarHeight,
-            color: SQColor.white,
             child: Row(
               children: <Widget>[
                 Container(
