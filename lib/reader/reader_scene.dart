@@ -33,7 +33,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   double topSafeHeight = 0;
 
   Article preArticle;
-  Article article;
+  Article currentArticle;
   Article nextArticle;
 
   List<Chapter> chapters = [];
@@ -80,18 +80,18 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   resetContent(int articleId, PageJumpType jumpType) async {
-    article = await fetchArticle(articleId);
-    if (article.preArticleId > 0) {
-      preArticle = await fetchArticle(article.preArticleId);
+    currentArticle = await fetchArticle(articleId);
+    if (currentArticle.preArticleId > 0) {
+      preArticle = await fetchArticle(currentArticle.preArticleId);
     }
-    if (article.nextArticleId > 0) {
-      nextArticle = await fetchArticle(article.nextArticleId);
+    if (currentArticle.nextArticleId > 0) {
+      nextArticle = await fetchArticle(currentArticle.nextArticleId);
     }
     if (jumpType == PageJumpType.firstPage) {
       pageIndex = 0;
       pageController.jumpToPage((preArticle != null ? preArticle.pageCount : 0) + pageIndex);
     } else if (jumpType == PageJumpType.lastPage) {
-      pageIndex = article.pageCount - 1;
+      pageIndex = currentArticle.pageCount - 1;
       pageController.jumpToPage((preArticle != null ? preArticle.pageCount : 0) + pageIndex);
     }
 
@@ -101,27 +101,27 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   onScroll() {
     var page = pageController.offset / Screen.width;
 
-    var nextArtilePage = article.pageCount + (preArticle != null ? preArticle.pageCount : 0);
+    var nextArtilePage = currentArticle.pageCount + (preArticle != null ? preArticle.pageCount : 0);
     if (page >= nextArtilePage) {
       print('到达下个章节了');
 
-      preArticle = article;
-      article = nextArticle;
+      preArticle = currentArticle;
+      currentArticle = nextArticle;
       nextArticle = null;
       pageIndex = 0;
       pageController.jumpToPage(preArticle.pageCount);
-      fetchNextArticle(article.nextArticleId);
+      fetchNextArticle(currentArticle.nextArticleId);
       setState(() {});
     }
     if (preArticle != null && page <= preArticle.pageCount - 1) {
       print('到达上个章节了');
 
-      nextArticle = article;
-      article = preArticle;
+      nextArticle = currentArticle;
+      currentArticle = preArticle;
       preArticle = null;
-      pageIndex = article.pageCount - 1;
-      pageController.jumpToPage(article.pageCount - 1);
-      fetchPreviousArticle(article.preArticleId);
+      pageIndex = currentArticle.pageCount - 1;
+      pageController.jumpToPage(currentArticle.pageCount - 1);
+      fetchPreviousArticle(currentArticle.preArticleId);
       setState(() {});
     }
   }
@@ -172,7 +172,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
   onPageChanged(int index) {
     var page = index - (preArticle != null ? preArticle.pageCount : 0);
-    if (page < article.pageCount && page >= 0) {
+    if (page < currentArticle.pageCount && page >= 0) {
       setState(() {
         pageIndex = page;
       });
@@ -180,7 +180,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   previousPage() {
-    if (pageIndex == 0 && article.preArticleId == 0) {
+    if (pageIndex == 0 && currentArticle.preArticleId == 0) {
       Toast.show('已经是第一页了');
       return;
     }
@@ -188,7 +188,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   nextPage() {
-    if (pageIndex >= article.pageCount - 1 && article.nextArticleId == 0) {
+    if (pageIndex >= currentArticle.pageCount - 1 && currentArticle.nextArticleId == 0) {
       Toast.show('已经是最后一页了');
       return;
     }
@@ -197,35 +197,50 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
   Widget buildPage(BuildContext context, int index) {
     var page = index - (preArticle != null ? preArticle.pageCount : 0);
-    String content;
-    if (page >= article.pageCount) {
+    var article;
+    if (page >= this.currentArticle.pageCount) {
       // 到达下一章了
-      content = nextArticle.stringAtPageIndex(0);
+      article = nextArticle;
+      page = 0;
     } else if (page < 0) {
       // 到达上一章了
-      content = preArticle.stringAtPageIndex(preArticle.pageCount - 1);
+      article = preArticle;
+      page = preArticle.pageCount - 1;
     } else {
-      content = article.stringAtPageIndex(page);
+      article = this.currentArticle;
     }
-    if (content.startsWith('\n')) {
-      content = content.substring(1);
-    }
+
     return GestureDetector(
       onTapUp: (TapUpDetails details) {
         onTap(details.globalPosition);
       },
-      child: Container(
-        color: Colors.transparent,
-        margin: EdgeInsets.fromLTRB(15, topSafeHeight + ReaderUtils.topOffset, 10, Screen.bottomSafeHeight + ReaderUtils.bottomOffset),
-        child: Text.rich(
-          TextSpan(children: [TextSpan(text: content, style: TextStyle(fontSize: fixedFontSize(ReaderConfig.instance.fontSize)))]),
-          textAlign: TextAlign.justify,
-        ),
+      child: Stack(
+        children: <Widget>[
+          Positioned(left: 0, top: 0, right: 0, bottom: 0, child: Image.asset('img/read_bg.png', fit: BoxFit.cover)),
+          buildOverlayer(article, page),
+          buildContent(article, page),
+        ],
       ),
     );
   }
 
-  buildOverlayer() {
+  buildContent(Article article, int page) {
+    var content = article.stringAtPageIndex(page);
+   
+    if (content.startsWith('\n')) {
+      content = content.substring(1);
+    }
+    return Container(
+      color: Colors.transparent,
+      margin: EdgeInsets.fromLTRB(15, topSafeHeight + ReaderUtils.topOffset, 10, Screen.bottomSafeHeight + ReaderUtils.bottomOffset),
+      child: Text.rich(
+        TextSpan(children: [TextSpan(text: content, style: TextStyle(fontSize: fixedFontSize(ReaderConfig.instance.fontSize)))]),
+        textAlign: TextAlign.justify,
+      ),
+    );
+  }
+
+  buildOverlayer(Article article, int page) {
     var format = DateFormat('HH:mm');
     var time = format.format(DateTime.now());
     var textColor = Color(0xff8B7961);
@@ -243,7 +258,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
               SizedBox(width: 10),
               Text(time, style: TextStyle(fontSize: fixedFontSize(11), color: textColor)),
               Expanded(child: Container()),
-              Text('第${pageIndex + 1}页', style: TextStyle(fontSize: fixedFontSize(11), color: textColor)),
+              Text('第${page + 1}页', style: TextStyle(fontSize: fixedFontSize(11), color: textColor)),
             ],
           ),
         ],
@@ -251,20 +266,24 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     );
   }
 
-  buildContent() {
-    if (article == null) {
+  buildMain() {
+    if (currentArticle == null) {
       return Container();
     }
 
-    int itemCount = (preArticle != null ? preArticle.pageCount : 0) + article.pageCount + (nextArticle != null ? nextArticle.pageCount : 0);
-    return Container(
-      child: PageView.builder(
-        physics: BouncingScrollPhysics(),
-        controller: pageController,
-        itemCount: itemCount,
-        itemBuilder: buildPage,
-        onPageChanged: onPageChanged,
-      ),
+    int itemCount = (preArticle != null ? preArticle.pageCount : 0) + currentArticle.pageCount + (nextArticle != null ? nextArticle.pageCount : 0);
+    return Stack(
+      children: <Widget>[
+        Container(
+          child: PageView.builder(
+            physics: BouncingScrollPhysics(),
+            controller: pageController,
+            itemCount: itemCount,
+            itemBuilder: buildPage,
+            onPageChanged: onPageChanged,
+          ),
+        )
+      ],
     );
   }
 
@@ -274,21 +293,21 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     }
     return ReaderMenu(
       chapters: chapters,
-      articleIndex: article.index,
+      articleIndex: currentArticle.index,
       onTap: hideMenu,
       onPreviousArticle: () {
-        if (article.preArticleId == 0) {
+        if (currentArticle.preArticleId == 0) {
           Toast.show('已经是第一章了');
           return;
         }
-        resetContent(article.preArticleId, PageJumpType.firstPage);
+        resetContent(currentArticle.preArticleId, PageJumpType.firstPage);
       },
       onNextArticle: () {
-        if (article.nextArticleId == 0) {
+        if (currentArticle.nextArticleId == 0) {
           Toast.show('已经是最后一章了');
           return;
         }
-        resetContent(article.nextArticleId, PageJumpType.firstPage);
+        resetContent(currentArticle.nextArticleId, PageJumpType.firstPage);
       },
       onToggleChapter: (Chapter chapter) {
         resetContent(chapter.id, PageJumpType.firstPage);
@@ -305,16 +324,14 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    if (article == null || chapters == null) {
+    if (currentArticle == null || chapters == null) {
       return Scaffold();
     }
 
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Positioned(left: 0, top: 0, right: 0, bottom: 0, child: Image.asset('img/read_bg.png', fit: BoxFit.cover)),
-          buildOverlayer(),
-          buildContent(),
+          buildMain(),
           buildMenu(),
         ],
       ),
