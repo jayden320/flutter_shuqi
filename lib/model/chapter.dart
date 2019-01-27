@@ -1,10 +1,12 @@
 
 class Chapter {
-  String id;
-  String name;
+  int id;
+  String title;
+  int index;
 
   Chapter.fromJson(Map data) {
-    id = data['chapterId'];
-    name = data['chapterName'];
+    id = data['id'];
+    title = data['title'];
+    index = data['index'];
   }
 }

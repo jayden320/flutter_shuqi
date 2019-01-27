@@ -4,7 +4,7 @@ class Article {
   String title;
   String content;
   int price;
-  int idx;
+  int index;
   int nextArticleId;
   int preArticleId;
 
@@ -18,7 +18,7 @@ class Article {
     content = '　　' + content;
     content = content.replaceAll('\n', '\n　　');
     price = data['welth'];
-    idx = data['idx'];
+    index = data['index'];
     nextArticleId = data['next_id'];
     preArticleId = data['prev_id'];
   }

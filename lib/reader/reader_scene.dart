@@ -13,6 +13,8 @@ import 'reader_page_agent.dart';
 import 'battery_view.dart';
 import 'reader_menu.dart';
 
+enum PageJumpType { stay, firstPage, lastPage }
+
 class ReaderScene extends StatefulWidget {
   final int articleId;
 
@@ -23,7 +25,6 @@ class ReaderScene extends StatefulWidget {
 }
 
 class ReaderSceneState extends State<ReaderScene> with RouteAware {
-  int articleId;
   int pageIndex = 0;
   bool isMenuVisiable = false;
   PageController pageController = PageController(keepPage: false);
@@ -35,10 +36,11 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   Article article;
   Article nextArticle;
 
+  List<Chapter> chapters = [];
+
   @override
   void initState() {
     super.initState();
-    articleId = this.widget.articleId;
     pageController.addListener(onScroll);
 
     setup();
@@ -69,6 +71,15 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
     topSafeHeight = Screen.topSafeHeight;
 
+    List<dynamic> chaptersResponse = await Request.get(action: 'catalog');
+    chaptersResponse.forEach((data) {
+      chapters.add(Chapter.fromJson(data));
+    });
+
+    await resetContent(this.widget.articleId, PageJumpType.stay);
+  }
+
+  resetContent(int articleId, PageJumpType jumpType) async {
     article = await fetchArticle(articleId);
     if (article.preArticleId > 0) {
       preArticle = await fetchArticle(article.preArticleId);
@@ -76,13 +87,20 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     if (article.nextArticleId > 0) {
       nextArticle = await fetchArticle(article.nextArticleId);
     }
+    if (jumpType == PageJumpType.firstPage) {
+      pageIndex = 0;
+      pageController.jumpToPage((preArticle != null ? preArticle.pageCount : 0) + pageIndex);
+    } else if (jumpType == PageJumpType.lastPage) {
+      pageIndex = article.pageCount - 1;
+      pageController.jumpToPage((preArticle != null ? preArticle.pageCount : 0) + pageIndex);
+    }
 
     setState(() {});
   }
 
   onScroll() {
     var page = pageController.offset / Screen.width;
-    
+
     var nextArtilePage = article.pageCount + (preArticle != null ? preArticle.pageCount : 0);
     if (page >= nextArtilePage) {
       print('到达下个章节了');
@@ -179,7 +197,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
   Widget buildPage(BuildContext context, int index) {
     var page = index - (preArticle != null ? preArticle.pageCount : 0);
-    var content;
+    String content;
     if (page >= article.pageCount) {
       // 到达下一章了
       content = nextArticle.stringAtPageIndex(0);
@@ -188,6 +206,9 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
       content = preArticle.stringAtPageIndex(preArticle.pageCount - 1);
     } else {
       content = article.stringAtPageIndex(page);
+    }
+    if (content.startsWith('\n')) {
+      content = content.substring(1);
     }
     return GestureDetector(
       onTapUp: (TapUpDetails details) {
@@ -250,17 +271,40 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     if (!isMenuVisiable) {
       return Container();
     }
-    return ReaderMenu(onTap: () {
-      setState(() {
-        SystemChrome.setEnabledSystemUIOverlays([]);
-        this.isMenuVisiable = false;
-      });
+    return ReaderMenu(
+      chapters: chapters,
+      articleIndex: article.index,
+      onTap: hideMenu,
+      onPreviousArticle: () {
+        if (article.preArticleId == 0) {
+          Toast.show('已经是第一章了');
+          return;
+        }
+        resetContent(article.preArticleId, PageJumpType.firstPage);
+      },
+      onNextArticle: () {
+        if (article.nextArticleId == 0) {
+          Toast.show('已经是最后一章了');
+          return;
+        }
+        resetContent(article.nextArticleId, PageJumpType.firstPage);
+      },
+      onToggleChapter: (Chapter chapter) {
+        resetContent(chapter.id, PageJumpType.firstPage);
+      },
+    );
+  }
+
+  hideMenu() {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    setState(() {
+      this.isMenuVisiable = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (article == null) {
+    if (article == null || chapters == null) {
       return Scaffold();
     }
 

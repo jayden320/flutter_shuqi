@@ -262,7 +262,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
                     NovelDetailCell(
                       iconName: 'img/detail_latest.png',
                       title: '最新',
-                      subtitle: novel.lastChapter.name,
+                      subtitle: novel.lastChapter.title,
                       attachedWidget: Text(novel.status, style: TextStyle(fontSize: 14, color: novel.statusColor())),
                     ),
                     NovelDetailCell(

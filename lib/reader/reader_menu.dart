@@ -4,8 +4,15 @@ import 'dart:async';
 import 'package:shuqi/public.dart';
 
 class ReaderMenu extends StatefulWidget {
+  final List<Chapter> chapters;
+  final int articleIndex;
+
   final VoidCallback onTap;
-  ReaderMenu({this.onTap});
+  final VoidCallback onPreviousArticle;
+  final VoidCallback onNextArticle;
+  final void Function(Chapter chapter) onToggleChapter;
+
+  ReaderMenu({this.chapters, this.articleIndex, this.onTap, this.onPreviousArticle, this.onNextArticle, this.onToggleChapter});
 
   @override
   _ReaderMenuState createState() => _ReaderMenuState();
@@ -16,12 +23,13 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
   Animation<double> animation;
 
   double progressValue;
+  bool isTipVisible = false;
 
   @override
   initState() {
     super.initState();
 
-    progressValue = 0.0;
+    progressValue = this.widget.articleIndex / (this.widget.chapters.length - 1);
     animationController = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
     animation = Tween(begin: 0.0, end: 1.0).animate(animationController);
     animation.addListener(() {
@@ -31,12 +39,28 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
   }
 
   @override
+  void didUpdateWidget(ReaderMenu oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    progressValue = this.widget.articleIndex / (this.widget.chapters.length - 1);
+  }
+
+  @override
   void dispose() {
     animationController.dispose();
     super.dispose();
   }
 
-  buildTopMenu(BuildContext context) {
+  hide() {
+    animationController.reverse();
+    Timer(Duration(milliseconds: 200), () {
+      this.widget.onTap();
+    });
+    setState(() {
+      isTipVisible = false;
+    });
+  }
+
+  buildTopView(BuildContext context) {
     return Positioned(
       top: -Screen.navigationBarHeight * (1 - animation.value),
       left: 0,
@@ -71,12 +95,44 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
     );
   }
 
+  int currentArticleIndex() {
+    return ((this.widget.chapters.length - 1) * progressValue).toInt();
+  }
+
+  buildProgressTipView() {
+    if (!isTipVisible) {
+      return Container();
+    }
+    Chapter chapter = this.widget.chapters[currentArticleIndex()];
+    double percentage = chapter.index / this.widget.chapters.length * 100;
+    return Container(
+      color: Color(0xff00C88D),
+      margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
+      padding: EdgeInsets.all(15),
+      child: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(chapter.title, style: TextStyle(color: Colors.white, fontSize: 18)),
+            Text('${percentage.toStringAsFixed(1)}%', style: TextStyle(color: SQColor.lightGray, fontSize: 14)),
+          ],
+        ),
+      ),
+    );
+  }
+
   buildProgressView() {
     return Container(
       padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
       child: Row(
         children: <Widget>[
           GestureDetector(
+            onTap: () {
+              this.widget.onPreviousArticle();
+              setState(() {
+                isTipVisible = true;
+              });
+            },
             child: Container(
               padding: EdgeInsets.all(10),
               child: Image.asset('img/read_icon_chapter_previous.png'),
@@ -87,14 +143,25 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
               value: progressValue,
               onChanged: (double value) {
                 setState(() {
+                  isTipVisible = true;
                   progressValue = value;
                 });
+              },
+              onChangeEnd: (double value) {
+                Chapter chapter = this.widget.chapters[currentArticleIndex()];
+                this.widget.onToggleChapter(chapter);
               },
               activeColor: SQColor.primary,
               inactiveColor: SQColor.gray,
             ),
           ),
           GestureDetector(
+            onTap: () {
+              this.widget.onNextArticle();
+              setState(() {
+                isTipVisible = true;
+              });
+            },
             child: Container(
               padding: EdgeInsets.all(10),
               child: Image.asset('img/read_icon_chapter_next.png'),
@@ -104,30 +171,39 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
       ),
     );
   }
-  
-  buildBottomMenu() {
+
+  buildBottomView() {
     return Positioned(
-      bottom: -(Screen.bottomSafeHeight + 60) * (1 - animation.value),
+      bottom: -(Screen.bottomSafeHeight + 110) * (1 - animation.value),
       left: 0,
       right: 0,
-      child: Container(
-        decoration: BoxDecoration(color: SQColor.paper, boxShadow: Styles.borderShadow),
-        padding: EdgeInsets.only(bottom: Screen.bottomSafeHeight),
-        child: Column(
-          children: <Widget>[
-            buildProgressView(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Column(
+        children: <Widget>[
+          buildProgressTipView(),
+          Container(
+            decoration: BoxDecoration(color: SQColor.paper, boxShadow: Styles.borderShadow),
+            padding: EdgeInsets.only(bottom: Screen.bottomSafeHeight),
+            child: Column(
               children: <Widget>[
-                buildBottomItem('目录', 'img/read_icon_catalog.png'),
-                buildBottomItem('亮度', 'img/read_icon_brightness.png'),
-                buildBottomItem('字体', 'img/read_icon_font.png'),
-                buildBottomItem('设置', 'img/read_icon_setting.png'),
+                buildProgressView(),
+                buildBottomMenus(),
               ],
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
+    );
+  }
+
+  buildBottomMenus() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        buildBottomItem('目录', 'img/read_icon_catalog.png'),
+        buildBottomItem('亮度', 'img/read_icon_brightness.png'),
+        buildBottomItem('字体', 'img/read_icon_font.png'),
+        buildBottomItem('设置', 'img/read_icon_setting.png'),
+      ],
     );
   }
 
@@ -150,16 +226,13 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
       child: Stack(
         children: <Widget>[
           GestureDetector(
-            onTap: () {
-              animationController.reverse();
-              Timer(Duration(milliseconds: 200), () {
-                this.widget.onTap();
-              });
+            onTapDown: (_) {
+              hide();
             },
             child: Container(color: Colors.transparent),
           ),
-          buildTopMenu(context),
-          buildBottomMenu(),
+          buildTopView(context),
+          buildBottomView(),
         ],
       ),
     );
