@@ -11,4 +11,5 @@ class SQColor {
   static Color darkGray = Color(0xFF333333);
   static Color gray = Color(0xFF888888);
   static Color blue = Color(0xFF3688FF);
+  static Color golden = Color(0xff8B7961);
 }

@@ -119,18 +119,35 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
     );
   }
 
+  previousArticle() {
+    if (this.widget.articleIndex == 0) {
+      Toast.show('已经是第一章了');
+      return;
+    }
+    this.widget.onPreviousArticle();
+    setState(() {
+      isTipVisible = true;
+    });
+  }
+
+  nextArticle() {
+    if (this.widget.articleIndex == this.widget.chapters.length - 1) {
+      Toast.show('已经是最后一章了');
+      return;
+    }
+    this.widget.onNextArticle();
+    setState(() {
+      isTipVisible = true;
+    });
+  }
+
   buildProgressView() {
     return Container(
       padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
       child: Row(
         children: <Widget>[
           GestureDetector(
-            onTap: () {
-              this.widget.onPreviousArticle();
-              setState(() {
-                isTipVisible = true;
-              });
-            },
+            onTap: previousArticle,
             child: Container(
               padding: EdgeInsets.all(20),
               child: Image.asset('img/read_icon_chapter_previous.png'),
@@ -154,12 +171,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
             ),
           ),
           GestureDetector(
-            onTap: () {
-              this.widget.onNextArticle();
-              setState(() {
-                isTipVisible = true;
-              });
-            },
+            onTap: nextArticle,
             child: Container(
               padding: EdgeInsets.all(20),
               child: Image.asset('img/read_icon_chapter_next.png'),

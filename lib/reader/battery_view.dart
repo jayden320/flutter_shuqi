@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:battery/battery.dart';
+import 'package:device_info/device_info.dart';
+import 'dart:io';
 
 import 'package:shuqi/public.dart';
 
@@ -15,10 +17,24 @@ class _BatteryViewState extends State<BatteryView> {
   void initState() {
     super.initState();
 
-    // getBatteryLevel();
+    getBatteryLevel();
   }
 
   getBatteryLevel() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      var androidInfo = await deviceInfo.androidInfo;
+      if (!androidInfo.isPhysicalDevice) {
+        return;
+      }
+    }
+    if (Platform.isIOS) {
+      var iosInfo = await deviceInfo.iosInfo;
+      if (!iosInfo.isPhysicalDevice) {
+        return;
+      }
+    }
+
     var level = await Battery().batteryLevel;
     setState(() {
       this.batteryLevel = level / 100.0;
@@ -34,9 +50,9 @@ class _BatteryViewState extends State<BatteryView> {
         children: <Widget>[
           Image.asset('img/reader_battery.png'),
           Container(
-            margin: EdgeInsets.fromLTRB(2, 2, 2, 3),
+            margin: EdgeInsets.fromLTRB(2, 2, 2, 2),
             width: 20 * batteryLevel,
-            color: SQColor.gray,
+            color: SQColor.golden,
           )
         ],
       ),

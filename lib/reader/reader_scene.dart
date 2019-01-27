@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 
@@ -10,8 +9,8 @@ import 'reader_utils.dart';
 import 'reader_config.dart';
 
 import 'reader_page_agent.dart';
-import 'battery_view.dart';
 import 'reader_menu.dart';
+import 'reader_view.dart';
 
 enum PageJumpType { stay, firstPage, lastPage }
 
@@ -60,6 +59,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   @override
   void dispose() {
     pageController.dispose();
+    routeObserver.unsubscribe(this);
     super.dispose();
   }
 
@@ -83,15 +83,20 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     currentArticle = await fetchArticle(articleId);
     if (currentArticle.preArticleId > 0) {
       preArticle = await fetchArticle(currentArticle.preArticleId);
+    } else {
+      preArticle = null;
     }
     if (currentArticle.nextArticleId > 0) {
       nextArticle = await fetchArticle(currentArticle.nextArticleId);
+    } else {
+      nextArticle = null;
     }
     if (jumpType == PageJumpType.firstPage) {
       pageIndex = 0;
-      pageController.jumpToPage((preArticle != null ? preArticle.pageCount : 0) + pageIndex);
     } else if (jumpType == PageJumpType.lastPage) {
       pageIndex = currentArticle.pageCount - 1;
+    }
+    if (jumpType != PageJumpType.stay) {
       pageController.jumpToPage((preArticle != null ? preArticle.pageCount : 0) + pageIndex);
     }
 
@@ -214,76 +219,22 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
       onTapUp: (TapUpDetails details) {
         onTap(details.globalPosition);
       },
-      child: Stack(
-        children: <Widget>[
-          Positioned(left: 0, top: 0, right: 0, bottom: 0, child: Image.asset('img/read_bg.png', fit: BoxFit.cover)),
-          buildOverlayer(article, page),
-          buildContent(article, page),
-        ],
-      ),
+      child: ReaderView(article: article, page: page, topSafeHeight: topSafeHeight),
     );
   }
 
-  buildContent(Article article, int page) {
-    var content = article.stringAtPageIndex(page);
-   
-    if (content.startsWith('\n')) {
-      content = content.substring(1);
-    }
-    return Container(
-      color: Colors.transparent,
-      margin: EdgeInsets.fromLTRB(15, topSafeHeight + ReaderUtils.topOffset, 10, Screen.bottomSafeHeight + ReaderUtils.bottomOffset),
-      child: Text.rich(
-        TextSpan(children: [TextSpan(text: content, style: TextStyle(fontSize: fixedFontSize(ReaderConfig.instance.fontSize)))]),
-        textAlign: TextAlign.justify,
-      ),
-    );
-  }
-
-  buildOverlayer(Article article, int page) {
-    var format = DateFormat('HH:mm');
-    var time = format.format(DateTime.now());
-    var textColor = Color(0xff8B7961);
-
-    return Container(
-      padding: EdgeInsets.fromLTRB(15, 10 + topSafeHeight, 15, 10 + Screen.bottomSafeHeight),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(article.title, style: TextStyle(fontSize: fixedFontSize(14), color: textColor)),
-          Expanded(child: Container()),
-          Row(
-            children: <Widget>[
-              BatteryView(),
-              SizedBox(width: 10),
-              Text(time, style: TextStyle(fontSize: fixedFontSize(11), color: textColor)),
-              Expanded(child: Container()),
-              Text('第${page + 1}页', style: TextStyle(fontSize: fixedFontSize(11), color: textColor)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  buildMain() {
+  buildPageView() {
     if (currentArticle == null) {
       return Container();
     }
 
     int itemCount = (preArticle != null ? preArticle.pageCount : 0) + currentArticle.pageCount + (nextArticle != null ? nextArticle.pageCount : 0);
-    return Stack(
-      children: <Widget>[
-        Container(
-          child: PageView.builder(
-            physics: BouncingScrollPhysics(),
-            controller: pageController,
-            itemCount: itemCount,
-            itemBuilder: buildPage,
-            onPageChanged: onPageChanged,
-          ),
-        )
-      ],
+    return PageView.builder(
+      physics: BouncingScrollPhysics(),
+      controller: pageController,
+      itemCount: itemCount,
+      itemBuilder: buildPage,
+      onPageChanged: onPageChanged,
     );
   }
 
@@ -296,17 +247,9 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
       articleIndex: currentArticle.index,
       onTap: hideMenu,
       onPreviousArticle: () {
-        if (currentArticle.preArticleId == 0) {
-          Toast.show('已经是第一章了');
-          return;
-        }
         resetContent(currentArticle.preArticleId, PageJumpType.firstPage);
       },
       onNextArticle: () {
-        if (currentArticle.nextArticleId == 0) {
-          Toast.show('已经是最后一章了');
-          return;
-        }
         resetContent(currentArticle.nextArticleId, PageJumpType.firstPage);
       },
       onToggleChapter: (Chapter chapter) {
@@ -332,7 +275,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
       body: Stack(
         children: <Widget>[
           Positioned(left: 0, top: 0, right: 0, bottom: 0, child: Image.asset('img/read_bg.png', fit: BoxFit.cover)),
-          buildMain(),
+          buildPageView(),
           buildMenu(),
         ],
       ),
