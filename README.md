@@ -20,6 +20,8 @@
 
 四、UI设计师
 
+欢迎各位小伙伴加入，联系QQ：67111677
+
 ##  screen shot for iOS
 
 <img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_0.png">
