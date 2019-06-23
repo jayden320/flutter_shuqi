@@ -110,6 +110,7 @@ class HomeListViewState extends State<HomeListView> with AutomaticKeepAliveClien
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       child: RefreshIndicator(
         onRefresh: fetchData,

@@ -8,7 +8,7 @@ class AppScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ShuQi',
+      title: '书旗小说',
       navigatorObservers: [routeObserver],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

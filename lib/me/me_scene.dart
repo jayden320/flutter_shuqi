@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:shuqi/public.dart';
 import 'me_header.dart';
@@ -89,18 +90,17 @@ class MeScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        child: Container(color: SQColor.white),
-        preferredSize: Size(Screen.width, 0),
-      ),
-      body: Container(
-        color: Colors.white,
-        child: ListView(
-          children: <Widget>[
-            MeHeader(),
-            SizedBox(height: 10),
-            buildCells(context),
-          ],
+      body: AnnotatedRegion(
+        value: SystemUiOverlayStyle.dark,
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+            children: <Widget>[
+              MeHeader(),
+              SizedBox(height: 10),
+              buildCells(context),
+            ],
+          ),
         ),
       ),
     );

@@ -272,12 +272,15 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     }
 
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Positioned(left: 0, top: 0, right: 0, bottom: 0, child: Image.asset('img/read_bg.png', fit: BoxFit.cover)),
-          buildPageView(),
-          buildMenu(),
-        ],
+      body: AnnotatedRegion(
+        value: SystemUiOverlayStyle.dark,
+        child: Stack(
+          children: <Widget>[
+            Positioned(left: 0, top: 0, right: 0, bottom: 0, child: Image.asset('img/read_bg.png', fit: BoxFit.cover)),
+            buildPageView(),
+            buildMenu(),
+          ],
+        ),
       ),
     );
   }
