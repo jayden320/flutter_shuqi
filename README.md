@@ -125,7 +125,3 @@ MIT
 如果你喜欢这个项目，欢迎给我一个star。我将持续更新这个项目   :)
 
 也欢迎在[Github主页](https://github.com/huanxsd)关注我的其他项目。
-
-如果对这个项目有任何建议或意见，欢迎加入Flutter QQ群，群号：685481972
-
-![image.png](https://upload-images.jianshu.io/upload_images/5685774-66223a01e5817e3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
