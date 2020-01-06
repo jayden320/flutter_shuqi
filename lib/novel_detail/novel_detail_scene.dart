@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:async';
 
 import 'package:shuqi/public.dart';
 
@@ -30,8 +29,6 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   int commentCount = 0;
   int commentMemberCount = 0;
 
-  bool isVisible = true;
-
   @override
   void initState() {
     super.initState();
@@ -59,38 +56,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context));
-  }
-
-  @override
-  void didPush() {
-    // 间隔500毫秒后，再设置状态栏样式。否则设置无效（会被build覆盖？）。
-    Timer(Duration(milliseconds: 500), () {
-      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
-    });
-  }
-
-  @override
-  void didPopNext() {
-    isVisible = true;
-    updateStatusBar();
-  }
-
-  @override
-  void didPop() {
-    isVisible = false;
-  }
-
-  @override
-  void didPushNext() {
-    isVisible = false;
-  }
-
-  @override
   void dispose() {
-    routeObserver.unsubscribe(this);
     scrollController.dispose();
     super.dispose();
   }
@@ -106,27 +72,31 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   }
 
   fetchData() async {
-    var novelId = this.widget.novelId;
+    try {
+      var novelId = this.widget.novelId;
 
-    var novelResponse = await Request.post(action: 'novel_detail', params: {'id': novelId});
+      var novelResponse = await Request.post(action: 'novel_detail', params: {'id': novelId});
 
-    var commentsResponse = await Request.post(action: 'novel_comment', params: {'id': novelId});
-    List<NovelComment> comments = [];
-    commentsResponse.forEach((data) {
-      comments.add(NovelComment.fromJson(data));
-    });
+      var commentsResponse = await Request.post(action: 'novel_comment', params: {'id': novelId});
+      List<NovelComment> comments = [];
+      commentsResponse.forEach((data) {
+        comments.add(NovelComment.fromJson(data));
+      });
 
-    var recommendResponse = await Request.post(action: 'novel_recommend', params: {'id': novelId});
-    List<Novel> recommendNovels = [];
-    recommendResponse.forEach((data) {
-      recommendNovels.add(Novel.fromJson(data));
-    });
+      var recommendResponse = await Request.post(action: 'novel_recommend', params: {'id': novelId});
+      List<Novel> recommendNovels = [];
+      recommendResponse.forEach((data) {
+        recommendNovels.add(Novel.fromJson(data));
+      });
 
-    setState(() {
-      this.novel = Novel.fromJson(novelResponse);
-      this.comments = comments;
-      this.recommendNovels = recommendNovels;
-    });
+      setState(() {
+        this.novel = Novel.fromJson(novelResponse);
+        this.comments = comments;
+        this.recommendNovels = recommendNovels;
+      });
+    } catch (e) {
+      Toast.show(e.toString());
+    }
   }
 
   Widget buildNavigationBar() {
@@ -134,15 +104,16 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
       children: <Widget>[
         Container(
           width: 44,
-          margin: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
+          height: Screen.navigationBarHeight,
+          padding: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
           child: GestureDetector(onTap: back, child: Image.asset('img/pub_back_white.png')),
         ),
         Opacity(
           opacity: navAlpha,
           child: Container(
+            decoration: BoxDecoration(color: SQColor.white, boxShadow: Styles.borderShadow),
             padding: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
             height: Screen.navigationBarHeight,
-            color: SQColor.white,
             child: Row(
               children: <Widget>[
                 Container(
@@ -227,59 +198,50 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
     );
   }
 
-  updateStatusBar() {
-    if (navAlpha == 1) {
-      Screen.updateStatusBarStyle(SystemUiOverlayStyle.dark);
-    } else {
-      Screen.updateStatusBarStyle(SystemUiOverlayStyle.light);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (isVisible) {
-      updateStatusBar();
-    }
-
     if (this.novel == null) {
       return Scaffold(appBar: AppBar(elevation: 0));
     }
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Expanded(
-                child: ListView(
-                  controller: scrollController,
-                  padding: EdgeInsets.only(top: 0),
-                  children: <Widget>[
-                    NovelDetailHeader(novel),
-                    NovelSummaryView(novel.introduction, isSummaryUnfold, changeSummaryMaxLines),
-                    NovelDetailCell(
-                      iconName: 'img/detail_latest.png',
-                      title: '最新',
-                      subtitle: novel.lastChapter.name,
-                      attachedWidget: Text(novel.status, style: TextStyle(fontSize: 14, color: novel.statusColor())),
-                    ),
-                    NovelDetailCell(
-                      iconName: 'img/detail_chapter.png',
-                      title: '目录',
-                      subtitle: '共${novel.chapterCount}章',
-                    ),
-                    buildTags(),
-                    SizedBox(height: 10),
-                    buildComment(),
-                    SizedBox(height: 10),
-                    NovelDetailRecommendView(recommendNovels),
-                  ],
+      body: AnnotatedRegion(
+        value: navAlpha > 0.5 ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light,
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView(
+                    controller: scrollController,
+                    padding: EdgeInsets.only(top: 0),
+                    children: <Widget>[
+                      NovelDetailHeader(novel),
+                      NovelSummaryView(novel.introduction, isSummaryUnfold, changeSummaryMaxLines),
+                      NovelDetailCell(
+                        iconName: 'img/detail_latest.png',
+                        title: '最新',
+                        subtitle: novel.lastChapter.title,
+                        attachedWidget: Text(novel.status, style: TextStyle(fontSize: 14, color: novel.statusColor())),
+                      ),
+                      NovelDetailCell(
+                        iconName: 'img/detail_chapter.png',
+                        title: '目录',
+                        subtitle: '共${novel.chapterCount}章',
+                      ),
+                      buildTags(),
+                      SizedBox(height: 10),
+                      buildComment(),
+                      SizedBox(height: 10),
+                      NovelDetailRecommendView(recommendNovels),
+                    ],
+                  ),
                 ),
-              ),
-              NovelDetailToolbar(),
-            ],
-          ),
-          buildNavigationBar(),
-        ],
+                NovelDetailToolbar(novel),
+              ],
+            ),
+            buildNavigationBar(),
+          ],
+        ),
       ),
     );
   }

@@ -17,6 +17,7 @@ class Novel {
   int chapterCount;
   int recommendCount;
   int commentCount;
+  int firstArticleId;
 
   List<String> roles;
   String status;
@@ -26,6 +27,7 @@ class Novel {
 
   Novel.fromJson(Map data) {
     id = data['bid'];
+    firstArticleId = data['first_article_id'];
     name = data['bookname'];
     imgUrl = data['book_cover'];
     firstChapter = data['topic_first'];

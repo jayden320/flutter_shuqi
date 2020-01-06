@@ -2,7 +2,7 @@
   "state": 200,
   "message": "success",
   "data": {
-    "bid": "6900908",
+    "bid": "1945",
     "bookname": "逆天神医",
     "comment_count":"486547",
     "book_cover": "http://img-tailor.11222.cn/bcv/big/201901031812421599.jpg",
@@ -23,6 +23,7 @@
     "lastInsTime": 1546697715,
     "payMode": "3",
     "price": "0.5",
+    "first_article_id":1000,
     "tag": [
       "神医",
       "医术",
@@ -30,14 +31,14 @@
     ],
     "introduction": "【年度神作】真正的神医是什么？是会杀人的神医！\r\n杀一人，救百人，杀不杀？\r\n杀！\r\n这是一个不一样的神医；他妙手回春，有人将他的名字刻在长生牌位之上，日夜供奉。\r\n他受人唾骂，有人恨不得将他剥皮抽筋，日夜诅咒。\r\n他左擒济世壶，一手金针渡人苦海；他右持杀生剑，一剑送人断头台。\r\n可救人病，亦可要人命！\r\n",
     "firstChapter": {
-      "chapterId": "719306",
-      "chapterName": "第一章落魄青年",
+      "id": 719306,
+      "title": "第一章落魄青年",
       "updateTime": 1479970514,
       "shortContUrlSuffix": ""
     },
     "lastChapter": {
-      "chapterId": "1096632",
-      "chapterName": "第二千一百一十一章红尘仙劫（上）",
+      "id": 1096632,
+      "title": "第二千一百一十一章红尘仙劫（上）",
       "updateTime": 1546697715,
       "shortContUrlSuffix": ""
     },

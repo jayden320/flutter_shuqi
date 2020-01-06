@@ -20,27 +20,35 @@ class LoginSceneState extends State {
     if (phoneEditer.text.length == 0) {
       return;
     }
-    await Request.post(
-      action: 'sms',
-      params: {'phone': phoneEditer.text, 'type': 'login'},
-    );
-    setState(() {
-      coldDownSeconds = 60;
-    });
-    coldDown();
+    try {
+      await Request.post(
+        action: 'sms',
+        params: {'phone': phoneEditer.text, 'type': 'login'},
+      );
+      setState(() {
+        coldDownSeconds = 60;
+      });
+      coldDown();
+    } catch (e) {
+      Toast.show(e.toString());
+    }
   }
 
   login() async {
     var phone = phoneEditer.text;
     var code = codeEditer.text;
 
-    var response = await Request.post(action: 'login', params: {
-      'phone': phone,
-      'code': code,
-    });
-    UserManager.instance.login(response);
+    try {
+      var response = await Request.post(action: 'login', params: {
+        'phone': phone,
+        'code': code,
+      });
+      UserManager.instance.login(response);
 
-    Navigator.pop(context);
+      Navigator.pop(context);
+    } catch (e) {
+      Toast.show(e.toString());
+    }
   }
 
   @override
