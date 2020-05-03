@@ -2,30 +2,6 @@
 
 [简书](https://www.jianshu.com/p/aed5e319b313)
 
-## 加入我们
-
-掌中云文化传媒有限公司，技术部招募精兵强将！！！
-
-地址：
-
-福州市软件园
-
-岗位：
-
-一、前端工程师
-
-二、iOS工程师
-
-三、Android工程师
-
-四、PHP工程师
-
-五、测试工程师
-
-六、UI设计师
-
-欢迎各位小伙伴加入，联系QQ：67111677
-
 ##  screen shot for iOS
 
 <img src="https://github.com/huanxsd/flutter_shuqi/blob/master/screenshot/ios_0.png">
