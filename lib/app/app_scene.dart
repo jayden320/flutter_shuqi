@@ -15,7 +15,7 @@ class AppScene extends StatelessWidget {
         primaryColor: Colors.white,
         dividerColor: Color(0xffeeeeee),
         scaffoldBackgroundColor: SQColor.paper,
-        textTheme: TextTheme(body1: TextStyle(color: SQColor.darkGray)),
+        textTheme: TextTheme(bodyText1: TextStyle(color: SQColor.darkGray)),
       ),
       home: RootScene(),
     );

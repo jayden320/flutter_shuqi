@@ -1,16 +1,6 @@
 name: shuqi
 description: A new Flutter project.
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
 environment:
@@ -20,36 +10,23 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  carousel_slider: ^1.3.1
-  cached_network_image: ^1.1.1
-  shared_preferences: ^0.5.3
-  flutter_webview_plugin: ^0.3.8
-  share: ^0.6.1
-  fluttertoast: ^3.1.3
-  battery: ^0.3.0 
-  intl: ^0.16.0
-  device_info: ^0.4.0
+  carousel_slider: ^2.1.0
+  cached_network_image: ^2.2.0
+  shared_preferences: ^0.5.7
+  flutter_webview_plugin: ^0.3.11
+  share: ^0.6.4
+  fluttertoast: ^4.0.1
+  battery: ^1.0.1
+  intl: ^0.16.1
+  device_info: ^0.4.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
    - img/
    - mock/
