@@ -139,7 +139,7 @@ class LoginSceneState extends State {
                   color: SQColor.primary,
                 ),
                 height: 40,
-                child: FlatButton(
+                child: TextButton(
                   onPressed: login,
                   child: Text(
                     '登录',

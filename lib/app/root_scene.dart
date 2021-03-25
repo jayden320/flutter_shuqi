@@ -82,9 +82,9 @@ class RootSceneState extends State<RootScene> {
         backgroundColor: Colors.white,
         activeColor: SQColor.primary,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: getTabIcon(0), title: Text('书架')),
-          BottomNavigationBarItem(icon: getTabIcon(1), title: Text('书城')),
-          BottomNavigationBarItem(icon: getTabIcon(2), title: Text('我的')),
+          BottomNavigationBarItem(icon: getTabIcon(0), label: '书架'),
+          BottomNavigationBarItem(icon: getTabIcon(1), label: '书城'),
+          BottomNavigationBarItem(icon: getTabIcon(2), label: '我的'),
         ],
         currentIndex: _tabIndex,
         onTap: (index) {
