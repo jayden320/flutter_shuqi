@@ -1,24 +1,25 @@
 name: shuqi
 description: A new Flutter project.
 
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  carousel_slider: ^2.1.0
-  cached_network_image: ^2.2.0
-  shared_preferences: ^0.5.7
-  flutter_webview_plugin: ^0.3.11
-  share: ^0.6.4
-  fluttertoast: ^4.0.1
-  battery: ^1.0.1
-  intl: ^0.16.1
-  device_info: ^0.4.2
+  carousel_slider:
+  cached_network_image:
+  shared_preferences:
+  flutter_webview_plugin:
+  share:
+  fluttertoast:
+  battery:
+  intl:
+  device_info:
 
 dev_dependencies:
   flutter_test:
