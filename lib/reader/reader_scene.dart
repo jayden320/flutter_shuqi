@@ -53,7 +53,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
   @override
   void didPop() {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
   @override
@@ -64,7 +64,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   void setup() async {
-    await SystemChrome.setEnabledSystemUIOverlays([]);
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     // 不延迟的话，安卓获取到的topSafeHeight是错的。
     await Future.delayed(const Duration(milliseconds: 100), () {});
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -164,7 +164,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   onTap(Offset position) async {
     double xRate = position.dx / Screen.width;
     if (xRate > 0.33 && xRate < 0.66) {
-      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       setState(() {
         isMenuVisiable = true;
       });
@@ -259,7 +259,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   hideMenu() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     setState(() {
       this.isMenuVisiable = false;
     });

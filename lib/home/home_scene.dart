@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:shuqi/public.dart';
 
@@ -16,7 +17,7 @@ class HomeSceneState extends State<HomeScene> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          brightness: Brightness.light,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
           title: Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: TabBar(
