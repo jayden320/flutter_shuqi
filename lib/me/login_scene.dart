@@ -14,7 +14,7 @@ class LoginSceneState extends State {
   TextEditingController phoneEditer = TextEditingController();
   TextEditingController codeEditer = TextEditingController();
   int coldDownSeconds = 0;
-  Timer timer;
+  Timer? timer;
 
   fetchSmsCode() async {
     if (phoneEditer.text.length == 0) {
@@ -54,7 +54,7 @@ class LoginSceneState extends State {
   @override
   void dispose() {
     if (timer != null) {
-      timer.cancel();
+      timer!.cancel();
     }
     super.dispose();
   }

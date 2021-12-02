@@ -14,8 +14,8 @@ class BookshelfHeader extends StatefulWidget {
 }
 
 class _BookshelfHeaderState extends State<BookshelfHeader> with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
+  late AnimationController controller;
+  late Animation<double> animation;
 
   @override
   initState() {

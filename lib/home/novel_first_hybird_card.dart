@@ -13,7 +13,7 @@ class NovelFirstHybirdCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var novels = cardInfo.books;
-    if (novels.length < 3) {
+    if (novels == null || novels.length < 3) {
       return Container();
     }
 

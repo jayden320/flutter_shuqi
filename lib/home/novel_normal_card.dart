@@ -12,8 +12,8 @@ class NovelNormalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var novels = cardInfo.books;
-    if (novels.length < 3) {
-      return null;
+    if (novels == null || novels.length < 3) {
+      return SizedBox();
     }
 
     List<Widget> children = [

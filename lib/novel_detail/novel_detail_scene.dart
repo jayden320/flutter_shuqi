@@ -20,7 +20,7 @@ class NovelDetailScene extends StatefulWidget {
 }
 
 class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
-  Novel novel;
+  Novel? novel;
   List<Novel> recommendNovels = [];
   List<NovelComment> comments = [];
   ScrollController scrollController = ScrollController();
@@ -71,31 +71,31 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   }
 
   fetchData() async {
-    try {
-      var novelId = this.widget.novelId;
+    // try {
+    var novelId = this.widget.novelId;
 
-      var novelResponse = await Request.post(action: 'novel_detail', params: {'id': novelId});
+    var novelResponse = await Request.post(action: 'novel_detail', params: {'id': novelId});
 
-      var commentsResponse = await Request.post(action: 'novel_comment', params: {'id': novelId});
-      List<NovelComment> comments = [];
-      commentsResponse.forEach((data) {
-        comments.add(NovelComment.fromJson(data));
-      });
+    var commentsResponse = await Request.post(action: 'novel_comment', params: {'id': novelId});
+    List<NovelComment> comments = [];
+    commentsResponse.forEach((data) {
+      comments.add(NovelComment.fromJson(data));
+    });
 
-      var recommendResponse = await Request.post(action: 'novel_recommend', params: {'id': novelId});
-      List<Novel> recommendNovels = [];
-      recommendResponse.forEach((data) {
-        recommendNovels.add(Novel.fromJson(data));
-      });
+    var recommendResponse = await Request.post(action: 'novel_recommend', params: {'id': novelId});
+    List<Novel> recommendNovels = [];
+    recommendResponse.forEach((data) {
+      recommendNovels.add(Novel.fromJson(data));
+    });
 
-      setState(() {
-        this.novel = Novel.fromJson(novelResponse);
-        this.comments = comments;
-        this.recommendNovels = recommendNovels;
-      });
-    } catch (e) {
-      Toast.show(e.toString());
-    }
+    setState(() {
+      this.novel = Novel.fromJson(novelResponse);
+      this.comments = comments;
+      this.recommendNovels = recommendNovels;
+    });
+    // } catch (e) {
+    //   Toast.show(e.toString());
+    // }
   }
 
   Widget buildNavigationBar() {
@@ -121,7 +121,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
                 ),
                 Expanded(
                   child: Text(
-                    novel.name,
+                    novel!.name,
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -164,7 +164,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
             padding: EdgeInsets.symmetric(vertical: 15),
             child: Center(
               child: Text(
-                '查看全部评论（${novel.commentCount}条）',
+                '查看全部评论（${novel!.commentCount}条）',
                 style: TextStyle(fontSize: 14, color: SQColor.gray),
               ),
             ),
@@ -177,7 +177,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   Widget buildTags() {
     var colors = [Color(0xFFF9A19F), Color(0xFF59DDB9), Color(0xFF7EB3E7)];
     var i = 0;
-    var tagWidgets = novel.tags.map((tag) {
+    var tagWidgets = novel!.tags.map((tag) {
       var color = colors[i % 3];
       var tagWidget = Container(
         decoration: BoxDecoration(
@@ -202,6 +202,7 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
     if (this.novel == null) {
       return Scaffold(appBar: AppBar(elevation: 0));
     }
+    var novel = this.novel!;
     return Scaffold(
       body: AnnotatedRegion(
         value: navAlpha > 0.5 ? SystemUiOverlayStyle.dark : SystemUiOverlayStyle.light,

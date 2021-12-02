@@ -1,7 +1,7 @@
 class NovelComment {
-  String nickname;
-  String avatar;
-  String content;
+  late String nickname;
+  late String avatar;
+  late String content;
 
   NovelComment.fromJson(Map data) {
     nickname = data['nickName'];

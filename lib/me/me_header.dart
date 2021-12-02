@@ -23,7 +23,7 @@ class MeHeader extends StatelessWidget {
           children: <Widget>[
             CircleAvatar(
               radius: 40,
-              backgroundImage: user?.avatarUrl != null ? CachedNetworkImageProvider(user.avatarUrl) : AssetImage('img/placeholder_avatar.png'),
+              backgroundImage: (user?.avatarUrl != null ? CachedNetworkImageProvider(user!.avatarUrl) : AssetImage('img/placeholder_avatar.png')) as ImageProvider<Object>?,
             ),
             SizedBox(width: 25),
             Expanded(

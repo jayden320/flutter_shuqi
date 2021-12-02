@@ -6,9 +6,9 @@ class NovelDetailCell extends StatelessWidget {
   final String iconName;
   final String title;
   final String subtitle;
-  final Widget attachedWidget;
+  final Widget? attachedWidget;
 
-  NovelDetailCell({this.iconName, this.title, this.subtitle, this.attachedWidget});
+  NovelDetailCell({required this.iconName, required this.title, required this.subtitle, this.attachedWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class NovelDetailCell extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                attachedWidget != null ? attachedWidget : Container(),
+                attachedWidget != null ? attachedWidget! : Container(),
                 SizedBox(width: 10),
                 Image.asset('img/arrow_right.png'),
               ],

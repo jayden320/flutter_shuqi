@@ -12,17 +12,17 @@ class ReaderMenu extends StatefulWidget {
   final VoidCallback onNextArticle;
   final void Function(Chapter chapter) onToggleChapter;
 
-  ReaderMenu({this.chapters, this.articleIndex, this.onTap, this.onPreviousArticle, this.onNextArticle, this.onToggleChapter});
+  ReaderMenu({required this.chapters, required this.articleIndex, required this.onTap, required this.onPreviousArticle, required this.onNextArticle, required this.onToggleChapter});
 
   @override
   _ReaderMenuState createState() => _ReaderMenuState();
 }
 
 class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateMixin {
-  AnimationController animationController;
-  Animation<double> animation;
+  late AnimationController animationController;
+  late Animation<double> animation;
 
-  double progressValue;
+  late double progressValue;
   bool isTipVisible = false;
 
   @override

@@ -1,14 +1,14 @@
 import 'package:shuqi/model/novel.dart';
 
 class HomeModule {
-  String id;
-  String name;
-  int style;
-  List content;
+  late String id;
+  late String name;
+  late int style;
+  late List content;
 
-  List<CarouselInfo> carousels;
-  List<MenuInfo> menus;
-  List<Novel> books;
+  List<CarouselInfo>? carousels;
+  List<MenuInfo>? menus;
+  List<Novel>? books;
 
   HomeModule.fromJson(Map data) {
     id = data['id'];
@@ -18,14 +18,14 @@ class HomeModule {
     if (name == '顶部banner') {
       carousels = [];
       content.forEach((data) {
-        carousels.add(CarouselInfo.fromJson(data));
+        carousels!.add(CarouselInfo.fromJson(data));
       });
     }
 
     if (name == '顶部导航') {
       menus = [];
       content.forEach((data) {
-        menus.add(MenuInfo.fromJson(data));
+        menus!.add(MenuInfo.fromJson(data));
       });
     }
 
@@ -33,15 +33,15 @@ class HomeModule {
       style = data['m_s_style'];
       books = [];
       content.forEach((data) {
-        books.add(Novel.fromJson(data));
+        books!.add(Novel.fromJson(data));
       });
     }
   }
 }
 
 class MenuInfo {
-  String title;
-  String icon;
+  late String title;
+  late String icon;
 
   MenuInfo.fromJson(Map data) {
     title = data['toTitle'];
@@ -50,8 +50,8 @@ class MenuInfo {
 }
 
 class CarouselInfo {
-  String imageUrl;
-  String link;
+  String? imageUrl;
+  late String link;
 
   CarouselInfo.fromJson(Map data) {
     imageUrl = data['image_url'];

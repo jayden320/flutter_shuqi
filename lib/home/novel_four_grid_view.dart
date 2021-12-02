@@ -12,7 +12,7 @@ class NovelFourGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var novels = cardInfo.books;
-    if (novels.length < 8) {
+    if (novels == null || novels.length < 8) {
       return Container();
     }
     var children = novels.map((novel) => HomeNovelCoverView(novel)).toList();

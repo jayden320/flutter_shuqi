@@ -1,13 +1,5 @@
 class ReaderConfig {
-
-  static ReaderConfig _instance;
-  static ReaderConfig get instance {
-    if (_instance == null) {
-      _instance = ReaderConfig();
-    }
-    return _instance;
-  }
-
+  static ReaderConfig instance = ReaderConfig();
 
   double fontSize = 20.0;
 }

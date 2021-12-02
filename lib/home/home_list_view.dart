@@ -44,7 +44,7 @@ class HomeListViewState extends State<HomeListView> with AutomaticKeepAliveClien
 
   Future<void> fetchData() async {
     try {
-      var action;
+      late var action;
       switch (this.widget.type) {
         case HomeListType.excellent:
           action = 'home_excellent';
@@ -78,7 +78,7 @@ class HomeListViewState extends State<HomeListView> with AutomaticKeepAliveClien
   }
 
   Widget bookCardWithInfo(HomeModule module) {
-    Widget card;
+    Widget? card;
     switch (module.style) {
       case 1:
         card = NovelFourGridView(module);
@@ -93,14 +93,14 @@ class HomeListViewState extends State<HomeListView> with AutomaticKeepAliveClien
         card = NovelNormalCard(module);
         break;
     }
-    return card;
+    return card ?? SizedBox();
   }
 
   Widget buildModule(BuildContext context, HomeModule module) {
     if (module.carousels != null) {
-      return HomeBanner(module.carousels);
+      return HomeBanner(module.carousels!);
     } else if (module.menus != null) {
-      return HomeMenu(module.menus);
+      return HomeMenu(module.menus!);
     } else if (module.books != null) {
       return bookCardWithInfo(module);
     }

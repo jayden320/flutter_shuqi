@@ -5,8 +5,8 @@ import 'package:shuqi/app/sq_color.dart';
 
 class NovelCoverImage extends StatelessWidget {
   final String imgUrl;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   NovelCoverImage(this.imgUrl, {this.width, this.height});
 
   @override

@@ -12,17 +12,17 @@ class EventBus {
   factory EventBus() => _singleton;
 
   //保存事件订阅者队列，key:事件名(id)，value: 对应事件的订阅者队列
-  var _emap = Map<Object, List<EventCallback>>();
+  var _emap = Map<Object, List<EventCallback>?>();
 
   //添加订阅者
   void on(eventName, EventCallback f) {
-    if (eventName == null || f == null) return;
+    if (eventName == null) return;
     _emap[eventName] ??= [];
-    _emap[eventName].add(f);
+    _emap[eventName]!.add(f);
   }
 
   //移除订阅者
-  void off(eventName, [EventCallback f]) {
+  void off(eventName, [EventCallback? f]) {
     var list = _emap[eventName];
     if (eventName == null || list == null) return;
     if (f == null) {

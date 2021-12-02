@@ -1,14 +1,14 @@
 class Article {
-  int id;
-  int novelId;
-  String title;
-  String content;
-  int price;
-  int index;
-  int nextArticleId;
-  int preArticleId;
+  late int id;
+  late int novelId;
+  late String title;
+  late String content;
+  late int price;
+  late int index;
+  late int nextArticleId;
+  late int preArticleId;
 
-  List<Map<String, int>> pageOffsets;
+  late List<Map<String, int>> pageOffsets;
 
   Article.fromJson(Map data) {
     id = data['id'];
@@ -17,7 +17,7 @@ class Article {
     content = data['content'];
     content = '　　' + content;
     content = content.replaceAll('\n', '\n　　');
-    price = data['welth'];
+    price = data['welth'] ?? 0;
     index = data['index'];
     nextArticleId = data['next_id'];
     preArticleId = data['prev_id'];
@@ -25,7 +25,7 @@ class Article {
 
   String stringAtPageIndex(int index) {
     var offset = pageOffsets[index];
-    return this.content.substring(offset['start'], offset['end']);
+    return this.content.substring(offset['start']!, offset['end']);
   }
 
   int get pageCount {

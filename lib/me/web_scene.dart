@@ -4,9 +4,9 @@ import 'package:share/share.dart';
 
 class WebScene extends StatefulWidget {
   final String url;
-  final String title;
+  final String? title;
 
-  WebScene({@required this.url, this.title});
+  WebScene({required this.url, this.title});
 
   @override
   _WebSceneState createState() => _WebSceneState();

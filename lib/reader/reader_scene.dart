@@ -17,7 +17,7 @@ enum PageJumpType { stay, firstPage, lastPage }
 class ReaderScene extends StatefulWidget {
   final int articleId;
 
-  ReaderScene({this.articleId});
+  ReaderScene({required this.articleId});
 
   @override
   ReaderSceneState createState() => ReaderSceneState();
@@ -31,9 +31,9 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
   double topSafeHeight = 0;
 
-  Article preArticle;
-  Article currentArticle;
-  Article nextArticle;
+  Article? preArticle;
+  Article? currentArticle;
+  Article? nextArticle;
 
   List<Chapter> chapters = [];
 
@@ -48,7 +48,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context));
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
   }
 
   @override
@@ -81,23 +81,23 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
   resetContent(int articleId, PageJumpType jumpType) async {
     currentArticle = await fetchArticle(articleId);
-    if (currentArticle.preArticleId > 0) {
-      preArticle = await fetchArticle(currentArticle.preArticleId);
+    if (currentArticle!.preArticleId > 0) {
+      preArticle = await fetchArticle(currentArticle!.preArticleId);
     } else {
       preArticle = null;
     }
-    if (currentArticle.nextArticleId > 0) {
-      nextArticle = await fetchArticle(currentArticle.nextArticleId);
+    if (currentArticle!.nextArticleId > 0) {
+      nextArticle = await fetchArticle(currentArticle!.nextArticleId);
     } else {
       nextArticle = null;
     }
     if (jumpType == PageJumpType.firstPage) {
       pageIndex = 0;
     } else if (jumpType == PageJumpType.lastPage) {
-      pageIndex = currentArticle.pageCount - 1;
+      pageIndex = currentArticle!.pageCount - 1;
     }
     if (jumpType != PageJumpType.stay) {
-      pageController.jumpToPage((preArticle != null ? preArticle.pageCount : 0) + pageIndex);
+      pageController.jumpToPage((preArticle != null ? preArticle!.pageCount : 0) + pageIndex);
     }
 
     setState(() {});
@@ -106,7 +106,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   onScroll() {
     var page = pageController.offset / Screen.width;
 
-    var nextArtilePage = currentArticle.pageCount + (preArticle != null ? preArticle.pageCount : 0);
+    var nextArtilePage = currentArticle!.pageCount + (preArticle != null ? preArticle!.pageCount : 0);
     if (page >= nextArtilePage) {
       print('到达下个章节了');
 
@@ -114,19 +114,19 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
       currentArticle = nextArticle;
       nextArticle = null;
       pageIndex = 0;
-      pageController.jumpToPage(preArticle.pageCount);
-      fetchNextArticle(currentArticle.nextArticleId);
+      pageController.jumpToPage(preArticle!.pageCount);
+      fetchNextArticle(currentArticle!.nextArticleId);
       setState(() {});
     }
-    if (preArticle != null && page <= preArticle.pageCount - 1) {
+    if (preArticle != null && page <= preArticle!.pageCount - 1) {
       print('到达上个章节了');
 
       nextArticle = currentArticle;
       currentArticle = preArticle;
       preArticle = null;
-      pageIndex = currentArticle.pageCount - 1;
-      pageController.jumpToPage(currentArticle.pageCount - 1);
-      fetchPreviousArticle(currentArticle.preArticleId);
+      pageIndex = currentArticle!.pageCount - 1;
+      pageController.jumpToPage(currentArticle!.pageCount - 1);
+      fetchPreviousArticle(currentArticle!.preArticleId);
       setState(() {});
     }
   }
@@ -137,7 +137,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     }
     isLoading = true;
     preArticle = await fetchArticle(articleId);
-    pageController.jumpToPage(preArticle.pageCount + pageIndex);
+    pageController.jumpToPage(preArticle!.pageCount + pageIndex);
     isLoading = false;
     setState(() {});
   }
@@ -176,8 +176,8 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   onPageChanged(int index) {
-    var page = index - (preArticle != null ? preArticle.pageCount : 0);
-    if (page < currentArticle.pageCount && page >= 0) {
+    var page = index - (preArticle != null ? preArticle!.pageCount : 0);
+    if (page < currentArticle!.pageCount && page >= 0) {
       setState(() {
         pageIndex = page;
       });
@@ -185,7 +185,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   previousPage() {
-    if (pageIndex == 0 && currentArticle.preArticleId == 0) {
+    if (pageIndex == 0 && currentArticle!.preArticleId == 0) {
       Toast.show('已经是第一页了');
       return;
     }
@@ -193,7 +193,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   nextPage() {
-    if (pageIndex >= currentArticle.pageCount - 1 && currentArticle.nextArticleId == 0) {
+    if (pageIndex >= currentArticle!.pageCount - 1 && currentArticle!.nextArticleId == 0) {
       Toast.show('已经是最后一页了');
       return;
     }
@@ -201,16 +201,16 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
   }
 
   Widget buildPage(BuildContext context, int index) {
-    var page = index - (preArticle != null ? preArticle.pageCount : 0);
+    var page = index - (preArticle != null ? preArticle!.pageCount : 0);
     var article;
-    if (page >= this.currentArticle.pageCount) {
+    if (page >= this.currentArticle!.pageCount) {
       // 到达下一章了
       article = nextArticle;
       page = 0;
     } else if (page < 0) {
       // 到达上一章了
       article = preArticle;
-      page = preArticle.pageCount - 1;
+      page = preArticle!.pageCount - 1;
     } else {
       article = this.currentArticle;
     }
@@ -228,7 +228,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
       return Container();
     }
 
-    int itemCount = (preArticle != null ? preArticle.pageCount : 0) + currentArticle.pageCount + (nextArticle != null ? nextArticle.pageCount : 0);
+    int itemCount = (preArticle != null ? preArticle!.pageCount : 0) + currentArticle!.pageCount + (nextArticle != null ? nextArticle!.pageCount : 0);
     return PageView.builder(
       physics: BouncingScrollPhysics(),
       controller: pageController,
@@ -244,13 +244,13 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
     }
     return ReaderMenu(
       chapters: chapters,
-      articleIndex: currentArticle.index,
+      articleIndex: currentArticle!.index,
       onTap: hideMenu,
       onPreviousArticle: () {
-        resetContent(currentArticle.preArticleId, PageJumpType.firstPage);
+        resetContent(currentArticle!.preArticleId, PageJumpType.firstPage);
       },
       onNextArticle: () {
-        resetContent(currentArticle.nextArticleId, PageJumpType.firstPage);
+        resetContent(currentArticle!.nextArticleId, PageJumpType.firstPage);
       },
       onToggleChapter: (Chapter chapter) {
         resetContent(chapter.id, PageJumpType.firstPage);
@@ -267,7 +267,7 @@ class ReaderSceneState extends State<ReaderScene> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    if (currentArticle == null || chapters == null) {
+    if (currentArticle == null) {
       return Scaffold();
     }
 

@@ -9,7 +9,7 @@ class ReaderOverlayer extends StatelessWidget {
   final int page;
   final double topSafeHeight;
 
-  ReaderOverlayer({this.article, this.page, this.topSafeHeight});
+  ReaderOverlayer({required this.article, required this.page, required this.topSafeHeight});
 
   @override
   Widget build(BuildContext context) {
