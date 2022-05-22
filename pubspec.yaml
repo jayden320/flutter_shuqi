@@ -14,7 +14,7 @@ dependencies:
   carousel_slider:
   cached_network_image:
   shared_preferences:
-  flutter_webview_plugin:
+  webview_flutter:
   share:
   fluttertoast:
   battery:

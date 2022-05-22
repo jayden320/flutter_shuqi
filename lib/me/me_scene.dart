@@ -42,28 +42,8 @@ class MeScene extends StatelessWidget {
             onPressed: () {},
           ),
           MeCell(
-            title: '公益行动',
-            iconName: 'img/me_action.png',
-            onPressed: () {},
-          ),
-          MeCell(
             title: '我的收藏',
             iconName: 'img/me_favorite.png',
-            onPressed: () {},
-          ),
-          MeCell(
-            title: '打赏记录',
-            iconName: 'img/me_record.png',
-            onPressed: () {},
-          ),
-          MeCell(
-            title: '我的书评',
-            iconName: 'img/me_comment.png',
-            onPressed: () {},
-          ),
-          MeCell(
-            title: '个性换肤',
-            iconName: 'img/me_theme.png',
             onPressed: () {},
           ),
           MeCell(
@@ -76,10 +56,17 @@ class MeScene extends StatelessWidget {
             },
           ),
           MeCell(
-            title: 'Github',
+            title: 'Flutter版 书旗小说',
             iconName: 'img/me_feedback.png',
             onPressed: () {
-              AppNavigator.pushWeb(context, 'https://github.com/huanxsd/flutter_shuqi', 'Github');
+              AppNavigator.pushWeb(context, 'https://github.com/huanxsd/flutter_shuqi', 'Flutter');
+            },
+          ),
+          MeCell(
+            title: 'SwiftUI版 书旗小说',
+            iconName: 'img/me_action.png',
+            onPressed: () {
+              AppNavigator.pushWeb(context, 'https://github.com/huanxsd/swiftui-shuqi-reader', 'SwiftUI');
             },
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter/services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:share/share.dart';
 
 class WebScene extends StatefulWidget {
@@ -15,10 +16,15 @@ class WebScene extends StatefulWidget {
 class _WebSceneState extends State<WebScene> {
   @override
   Widget build(BuildContext context) {
-    return WebviewScaffold(
-      url: this.widget.url,
+    return Scaffold(
       appBar: AppBar(
-        title: Text(this.widget.title ?? '书旗'),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        backgroundColor: Colors.white,
+        title: Text(widget.title ?? '', style: TextStyle(color: Colors.black87)),
+        leading: IconButton(
+          onPressed: () => Navigator.maybePop(context),
+          icon: Icon(Icons.arrow_back_ios, color: Colors.black87),
+        ),
         actions: <Widget>[
           GestureDetector(
             onTap: () {
@@ -27,6 +33,10 @@ class _WebSceneState extends State<WebScene> {
             child: Image.asset('img/icon_menu_share.png'),
           )
         ],
+      ),
+      body: WebView(
+        javascriptMode: JavascriptMode.unrestricted,
+        initialUrl: widget.url,
       ),
     );
   }

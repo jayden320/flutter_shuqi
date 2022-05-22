@@ -44,7 +44,7 @@ App中的网络请求均通过一个名为**Request**的工具类。在Request�
 * [carousel_slider](https://pub.flutter-io.cn/packages/carousel_slider)
 * [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)
 * [shared_preferences](https://pub.flutter-io.cn/packages/shared_preferences)
-* [flutter_webview_plugin](https://pub.flutter-io.cn/packages/flutter_webview_plugin)
+* [webview_flutter](https://pub.flutter-io.cn/packages/flutter_webview_plugin)
 * [share](https://pub.flutter-io.cn/packages/share)
 
 ## 安装
