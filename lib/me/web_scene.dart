@@ -14,6 +14,17 @@ class WebScene extends StatefulWidget {
 }
 
 class _WebSceneState extends State<WebScene> {
+  WebViewController? controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(widget.url));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +45,7 @@ class _WebSceneState extends State<WebScene> {
           )
         ],
       ),
-      body: WebView(
-        javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: widget.url,
-      ),
+      body: WebViewWidget(controller: controller!),
     );
   }
 }
