@@ -10,16 +10,16 @@ import 'novel_detail_recommend_view.dart';
 import 'novel_detail_cell.dart';
 import 'novel_comment_cell.dart';
 
-class NovelDetailScene extends StatefulWidget {
+class NovelDetailPage extends StatefulWidget {
   final String novelId;
 
-  NovelDetailScene(this.novelId);
+  NovelDetailPage(this.novelId);
 
   @override
-  NovelDetailSceneState createState() => NovelDetailSceneState();
+  NovelDetailPageState createState() => NovelDetailPageState();
 }
 
-class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
+class NovelDetailPageState extends State<NovelDetailPage> with RouteAware {
   Novel? novel;
   List<Novel> recommendNovels = [];
   List<NovelComment> comments = [];
@@ -71,7 +71,6 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
   }
 
   fetchData() async {
-    // try {
     var novelId = this.widget.novelId;
 
     var novelResponse = await Request.post(action: 'novel_detail', params: {'id': novelId});
@@ -93,9 +92,6 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
       this.comments = comments;
       this.recommendNovels = recommendNovels;
     });
-    // } catch (e) {
-    //   Toast.show(e.toString());
-    // }
   }
 
   Widget buildNavigationBar() {
@@ -159,7 +155,6 @@ class NovelDetailSceneState extends State<NovelDetailScene> with RouteAware {
           Column(
             children: comments.map((comment) => NovelCommentCell(comment)).toList(),
           ),
-          Divider(height: 1),
           Container(
             padding: EdgeInsets.symmetric(vertical: 15),
             child: Center(

@@ -14,16 +14,16 @@ import 'reader_view.dart';
 
 enum PageJumpType { stay, firstPage, lastPage }
 
-class ReaderScene extends StatefulWidget {
+class ReaderPage extends StatefulWidget {
   final int articleId;
 
-  ReaderScene({required this.articleId});
+  ReaderPage({required this.articleId});
 
   @override
-  ReaderSceneState createState() => ReaderSceneState();
+  ReaderPageState createState() => ReaderPageState();
 }
 
-class ReaderSceneState extends State<ReaderScene> with RouteAware {
+class ReaderPageState extends State<ReaderPage> with RouteAware {
   int pageIndex = 0;
   bool isMenuVisiable = false;
   PageController pageController = PageController(keepPage: false);

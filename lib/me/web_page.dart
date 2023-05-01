@@ -3,17 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:share/share.dart';
 
-class WebScene extends StatefulWidget {
+class WebPage extends StatefulWidget {
   final String url;
   final String? title;
 
-  WebScene({required this.url, this.title});
+  WebPage({required this.url, this.title});
 
   @override
-  _WebSceneState createState() => _WebSceneState();
+  _WebPageState createState() => _WebPageState();
 }
 
-class _WebSceneState extends State<WebScene> {
+class _WebPageState extends State<WebPage> {
   WebViewController? controller;
 
   @override

@@ -33,7 +33,7 @@ class ReaderView extends StatelessWidget {
       color: Colors.transparent,
       margin: EdgeInsets.fromLTRB(15, topSafeHeight + ReaderUtils.topOffset, 10, Screen.bottomSafeHeight + ReaderUtils.bottomOffset),
       child: Text.rich(
-        TextSpan(children: [TextSpan(text: content, style: TextStyle(fontSize: fixedFontSize(ReaderConfig.instance.fontSize)))]),
+        TextSpan(children: [TextSpan(text: content, style: TextStyle(fontSize: Utility.fixedFontSize(ReaderConfig.instance.fontSize)))]),
         textAlign: TextAlign.justify,
       ),
     );

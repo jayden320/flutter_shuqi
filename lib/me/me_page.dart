@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 
 import 'package:shuqi/public.dart';
 import 'me_header.dart';
-import 'setting_scene.dart';
+import 'setting_page.dart';
 import 'me_cell.dart';
 
-class MeScene extends StatelessWidget {
+class MePage extends StatelessWidget {
   Widget buildCells(BuildContext context) {
     return Container(
       child: Column(
@@ -51,7 +51,7 @@ class MeScene extends StatelessWidget {
             iconName: 'img/me_setting.png',
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return SettingScene();
+                return SettingPage();
               }));
             },
           ),

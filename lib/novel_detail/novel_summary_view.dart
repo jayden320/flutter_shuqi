@@ -11,21 +11,26 @@ class NovelSummaryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-        child: Stack(
-          alignment: AlignmentDirectional.bottomEnd,
-          children: <Widget>[
-            Text(
-              summary,
-              maxLines: isUnfold ? null : 3,
-              style: TextStyle(fontSize: 14),
+      child: Column(
+        children: [
+          Container(
+            color: Colors.white,
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+            child: Stack(
+              alignment: AlignmentDirectional.bottomEnd,
+              children: <Widget>[
+                Text(
+                  summary,
+                  maxLines: isUnfold ? null : 3,
+                  style: TextStyle(fontSize: 14),
+                ),
+                Image.asset('img/detail_fold_bg.png'),
+                Image.asset(isUnfold ? 'img/detail_up.png' : 'img/detail_down.png'),
+              ],
             ),
-            Image.asset('img/detail_fold_bg.png'),
-            Image.asset(isUnfold ? 'img/detail_up.png' : 'img/detail_down.png'),
-          ],
-        ),
+          ),
+          Divider(height: 1, indent: 15),
+        ],
       ),
     );
   }

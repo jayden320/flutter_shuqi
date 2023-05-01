@@ -224,7 +224,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
         children: <Widget>[
           Image.asset(icon),
           SizedBox(height: 5),
-          Text(title, style: TextStyle(fontSize: fixedFontSize(12), color: SQColor.darkGray)),
+          Text(title, style: TextStyle(fontSize: Utility.fixedFontSize(12), color: SQColor.darkGray)),
         ],
       ),
     );

@@ -20,6 +20,7 @@ dependencies:
   battery:
   intl:
   device_info:
+  je_kit:
 
 dev_dependencies:
   flutter_test:

@@ -6,14 +6,14 @@ import 'package:shuqi/public.dart';
 
 import 'package:shuqi/home/home_scene.dart';
 import 'package:shuqi/bookshelf/bookshelf_scene.dart';
-import 'package:shuqi/me/me_scene.dart';
+import 'package:shuqi/me/me_page.dart';
 
-class RootScene extends StatefulWidget {
+class RootPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => RootSceneState();
+  State<StatefulWidget> createState() => RootPageState();
 }
 
-class RootSceneState extends State<RootScene> {
+class RootPageState extends State<RootPage> {
   int _tabIndex = 1;
   bool isFinishSetup = false;
   List<Image> _tabImages = [
@@ -72,9 +72,9 @@ class RootSceneState extends State<RootScene> {
     return Scaffold(
       body: IndexedStack(
         children: <Widget>[
-          BookshelfScene(),
-          HomeScene(),
-          MeScene(),
+          BookshelfPage(),
+          HomePage(),
+          MePage(),
         ],
         index: _tabIndex,
       ),

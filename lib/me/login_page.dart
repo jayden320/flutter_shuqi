@@ -3,28 +3,23 @@ import 'dart:async';
 
 import 'package:shuqi/public.dart';
 
-import 'code_button.dart';
-
-class LoginScene extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => LoginSceneState();
+  State<StatefulWidget> createState() => LoginPageState();
 }
 
-class LoginSceneState extends State {
+class LoginPageState extends State {
   TextEditingController phoneEditer = TextEditingController();
   TextEditingController codeEditer = TextEditingController();
   int coldDownSeconds = 0;
   Timer? timer;
 
-  fetchSmsCode() async {
+  Future fetchSmsCode() async {
     if (phoneEditer.text.length == 0) {
+      Toast.show('请输入手机号');
       return;
     }
     try {
-      await Request.post(
-        action: 'sms',
-        params: {'phone': phoneEditer.text, 'type': 'login'},
-      );
       setState(() {
         coldDownSeconds = 60;
       });
@@ -111,9 +106,12 @@ class LoginSceneState extends State {
             ),
           ),
           Container(color: Color(0xffdae3f2), width: 1, height: 40),
-          CodeButton(
-            onPressed: fetchSmsCode,
-            coldDownSeconds: coldDownSeconds,
+          Theme(
+            data: ThemeData(primaryColor: SQColor.primary),
+            child: CodeButton(
+              onPressed: fetchSmsCode,
+              coldDownSeconds: coldDownSeconds,
+            ),
           ),
         ],
       ),

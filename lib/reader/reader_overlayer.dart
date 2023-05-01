@@ -21,15 +21,15 @@ class ReaderOverlayer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(article.title, style: TextStyle(fontSize: fixedFontSize(14), color: SQColor.golden)),
+          Text(article.title, style: TextStyle(fontSize: Utility.fixedFontSize(14), color: SQColor.golden)),
           Expanded(child: Container()),
           Row(
             children: <Widget>[
               BatteryView(),
               SizedBox(width: 10),
-              Text(time, style: TextStyle(fontSize: fixedFontSize(11), color: SQColor.golden)),
+              Text(time, style: TextStyle(fontSize: Utility.fixedFontSize(11), color: SQColor.golden)),
               Expanded(child: Container()),
-              Text('第${page + 1}页', style: TextStyle(fontSize: fixedFontSize(11), color: SQColor.golden)),
+              Text('第${page + 1}页', style: TextStyle(fontSize: Utility.fixedFontSize(11), color: SQColor.golden)),
             ],
           ),
         ],

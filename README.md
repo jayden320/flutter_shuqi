@@ -37,11 +37,7 @@ $ flutter run
 
 ## Dependency
 
-* [carousel_slider](https://pub.flutter-io.cn/packages/carousel_slider)
-* [cached_network_image](https://pub.flutter-io.cn/packages/cached_network_image)
-* [shared_preferences](https://pub.flutter-io.cn/packages/shared_preferences)
-* [webview_flutter](https://pub.flutter-io.cn/packages/flutter_webview_plugin)
-* [share](https://pub.flutter-io.cn/packages/share)
+* [je_kit](https://github.com/jayden320/je_kit)
 
 ## Contact
 

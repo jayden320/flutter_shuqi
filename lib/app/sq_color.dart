@@ -7,7 +7,7 @@ class SQColor {
   static Color orange = Color(0xFFF67264);
   static Color white = Color(0xFFFFFFFF);
   static Color paper = Color(0xFFF5F5F5);
-  static Color lightGray = Color(0xFFEEEEEE);
+  static Color lightGray = Color(0xFFBBBBBB);
   static Color darkGray = Color(0xFF333333);
   static Color gray = Color(0xFF888888);
   static Color blue = Color(0xFF3688FF);

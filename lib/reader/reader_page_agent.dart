@@ -10,7 +10,7 @@ class ReaderPageAgent {
       offset['start'] = last;
       TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
       textPainter.text = TextSpan(text: tempStr, style: TextStyle(fontSize: fontSize));
-      textPainter.layout(maxWidth: width);
+      textPainter.layout(maxWidth: width - 1);
       var end = textPainter.getPositionForOffset(Offset(width, height)).offset;
 
       if (end == 0) {

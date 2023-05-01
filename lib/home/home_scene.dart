@@ -5,12 +5,12 @@ import 'package:shuqi/public.dart';
 
 import 'home_list_view.dart';
 
-class HomeScene extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => HomeSceneState();
+  State<StatefulWidget> createState() => HomePageState();
 }
 
-class HomeSceneState extends State<HomeScene> {
+class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

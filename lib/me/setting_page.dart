@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shuqi/public.dart';
 
-class SettingScene extends StatelessWidget {
+class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];

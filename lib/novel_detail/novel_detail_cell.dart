@@ -17,7 +17,6 @@ class NovelDetailCell extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         children: <Widget>[
-          Divider(height: 1),
           Container(
             height: 50,
             child: Row(

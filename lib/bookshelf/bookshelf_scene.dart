@@ -6,12 +6,12 @@ import 'package:shuqi/public.dart';
 import 'bookshelf_item_view.dart';
 import 'bookshelf_header.dart';
 
-class BookshelfScene extends StatefulWidget {
+class BookshelfPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => BookshelfState();
 }
 
-class BookshelfState extends State<BookshelfScene> with RouteAware {
+class BookshelfState extends State<BookshelfPage> with RouteAware {
   List<Novel> favoriteNovels = [];
   ScrollController scrollController = ScrollController();
   double navAlpha = 0;
