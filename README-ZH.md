@@ -58,6 +58,13 @@ $ cd flutter_shuqi
 $ flutter run
 ```
 
+## 编译 APK
+```shell
+flutter clean
+flutter build apk
+```
+完成后 apk 文件会生成在目录`build/app/outputs/flutter-apk`下。
+
 ## 联系
 
 如果有任何建议，可以在简书上给我留言
